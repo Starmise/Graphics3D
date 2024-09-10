@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Window.h"
 
 class BaseApp
 {
@@ -15,10 +16,6 @@ public:
   void 
     initialize();
 
-  //Función de manejo de datos
-  void 
-    handleEvents();
-
   //Función que se actualiza por frame 
   void 
     update();
@@ -31,6 +28,7 @@ public:
     cleanup();
 
 private:
-  sf::RenderWindow* window;
+  Window* m_window;
+  //sf::RenderWindow* window;
   sf::CircleShape* shape;
 };

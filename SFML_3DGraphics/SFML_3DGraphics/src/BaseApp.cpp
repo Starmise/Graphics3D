@@ -3,9 +3,8 @@
 int 
 BaseApp::run() {
   initialize();
-  while (window->isOpen())
-  {
-    handleEvents();
+  while (m_window->isOpen()) {
+    m_window->handleEvents();
     update();
     render();
   }
@@ -15,19 +14,9 @@ BaseApp::run() {
 
 void 
 BaseApp::initialize() {
-  window = new sf::RenderWindow(sf::VideoMode(800, 600), "Starmise Engine");
+  m_window = new Window(800, 600, "Starmise Engine");
   shape = new sf::CircleShape(100.0f);
   shape->setFillColor(sf::Color::Cyan);
-}
-
-void 
-BaseApp::handleEvents() {
-  sf::Event event;
-  while (window->pollEvent(event))
-  {
-    if (event.type == sf::Event::Closed)
-      window->close();
-  }
 }
 
 void 
@@ -36,13 +25,14 @@ BaseApp::update() {
 
 void 
 BaseApp::render() {
-  window->clear();
-  window->draw(*shape);
-  window->display();
+  m_window->clear();
+  m_window->draw(*shape);
+  m_window->display();
 }
 
 void 
 BaseApp::cleanup() {
-  delete window;
+  m_window->destroy();
+  delete m_window;
   delete shape;
 }
