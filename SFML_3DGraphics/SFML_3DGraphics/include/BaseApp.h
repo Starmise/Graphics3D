@@ -2,9 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include "Window.h"
 #include "ShapeFactory.h"
+#include "Actor.h"
 
-class BaseApp
-{
+class 
+  BaseApp {
 public:
 	BaseApp() = default;
 	~BaseApp() = default;
@@ -29,8 +30,10 @@ public:
     cleanup();
 
 private:
+  sf::Clock clock;
+  sf::Time deltaTime;
+
   Window* m_window;
-  sf::CircleShape* shape;
-  ShapeFactory m_shapeFactory;
-  sf::Shape* Triangulo;
+  EngineUtilities::TSharedPointer<Actor> Triangle;
+  EngineUtilities::TSharedPointer<Actor> Circle;
 };

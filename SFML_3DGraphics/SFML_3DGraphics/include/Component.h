@@ -10,7 +10,9 @@ enum
 	TRANSFORM = 1,
 	SPRITE = 2,
 	RENDERER = 3,
-	PHYSICS = 4
+	PHYSICS = 4,
+	AUDIOSOURCE = 5,
+	SHAPE = 6,
 };
 
 /*
@@ -19,8 +21,8 @@ enum
 * La clase Component define la interfaz básica que todos los componentes deben implementar, 
 * permitiendo actualizar y renderizar el componente, asi como obtener su tipo.
 */
-class Component
-{
+class 
+	Component {
 public:
 	Component() = default;
 

@@ -1,61 +1,73 @@
 #include "BaseApp.h"
 
-int 
+int
 BaseApp::run() {
-  if (!initialize) {
-    ERROR("BaseApp", "run", "initializes result on a false statement");
-  }
-  initialize();
-  while (m_window->isOpen()) {
-    m_window->handleEvents();
-    update();
-    render();
-  }
+	if (!initialize()) {
+		ERROR("BaseApp", "run", "Initializes result on a false statemente, check method validations");
+	}
+	while (m_window->isOpen()) {
+		m_window->handleEvents();
+		deltaTime = clock.restart();
+		update();
+		render();
+	}
 
-  cleanup();
+	cleanup();
+	return 0;
 }
 
-bool 
+bool
 BaseApp::initialize() {
-  m_window = new Window(800, 600, "Starmise Engine");
-  if (!m_window) {
-    ERROR("BaseApp", "initialize", "Error on window creation, var is null");
-    return false;
-  }
+	m_window = new Window(800, 600, "Galvan Engine");
+	if (!m_window) {
+		ERROR("BaseApp", "initialize", "Error on window creation, var is null");
+		return false;
+	}
+	/*shape = new sf::CircleShape(10.0f);
 
-  shape = new sf::CircleShape(10.0f);
-  if (!shape) {
-    ERROR("BaseApp", "initialize", "Error on window creation, var is null");
-    return false;
-  }
-  shape->setFillColor(sf::Color::Cyan);
-  shape->setPosition(300.0f, 200.0f);
+	if (!shape) {
+		ERROR("BaseApp", "initialize", "Error on shape creation, var is null");
+		return false;
+	}*/
 
-  Triangulo = new sf::CircleShape(30.0f, 3);
-  if (!shape) {
-    ERROR("BaseApp", "initialize", "Error on window creation, var is null");
-    return false;
-  }
-  Triangulo->setFillColor(sf::Color::Cyan);
-  Triangulo->setPosition(300.0f, 200.0f);
+	//Circle Actor
+	Circle = EngineUtilities::MakeShared<Actor>("Circle");
+	if (!Circle.isNull()) {
+		Circle->getComponent<ShapeFactory>()->createShape(ShapeType::CIRCLE); 
+		Circle->getComponent<ShapeFactory>()->setPosition(208.0f, 200.0f); 
+		Circle->getComponent<ShapeFactory>()->setFillColor(sf::Color::Magenta);
+	}
 
-  return true;
+	// Triangle Actor
+	Triangle = EngineUtilities::MakeShared<Actor>("Triangle");
+	if (!Triangle.isNull()) {
+		Triangle->getComponent<ShapeFactory>()->createShape(ShapeType::TRIANGLE);
+	}
+
+	return true;
 }
 
-void 
+void
 BaseApp::update() {
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(*m_window->getWindow());
+	sf::Vector2f mousePosF(static_cast<float>(mousePosition.x), 
+												 static_cast<float>(mousePosition.y));
+
+	if (!Circle.isNull()) {
+		Circle->getComponent<ShapeFactory>()->Seek(mousePosF, 200.0f, deltaTime.asSeconds(), 20.0f);
+	}
 }
 
-void 
+void
 BaseApp::render() {
-  m_window->clear();
-  m_window->draw(*shape);
-  m_window->display();
+	m_window->clear();
+	Circle->render(*m_window);
+	Triangle->render(*m_window);
+	m_window->display();
 }
 
-void 
+void
 BaseApp::cleanup() {
-  m_window->destroy();
-  delete m_window;
-  delete shape;
+	m_window->destroy();
+	delete m_window;
 }
