@@ -18,7 +18,7 @@ BaseApp::run() {
 
 bool
 BaseApp::initialize() {
-	m_window = new Window(800, 600, "Galvan Engine");
+	m_window = new Window(800, 600, "Starmise Engine");
 	if (!m_window) {
 		ERROR("BaseApp", "initialize", "Error on window creation, var is null");
 		return false;

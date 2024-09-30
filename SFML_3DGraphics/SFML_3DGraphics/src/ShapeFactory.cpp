@@ -1,8 +1,7 @@
 #include "ShapeFactory.h"
 
 sf::Shape* 
-ShapeFactory::createShape(ShapeType shapeType)
-{
+ShapeFactory::createShape(ShapeType shapeType) {
 	m_ShapeType = shapeType;
 	switch (shapeType)
 	{
@@ -33,25 +32,23 @@ ShapeFactory::createShape(ShapeType shapeType)
 }
 
 void 
-ShapeFactory::setPosition(float x, float y)
-{
+ShapeFactory::setPosition(float x, float y) {
 	m_shape->setPosition(x, y);
 }
 
 void 
-ShapeFactory::setPosition(const sf::Vector2f& position)
-{
+ShapeFactory::setPosition(const sf::Vector2f& position) {
 	m_shape->setPosition(position);
 }
 
-void ShapeFactory::setFillColor(const sf::Color& color)
-{
+void
+ShapeFactory::setFillColor(const sf::Color& color) {
 	m_shape->setFillColor(color);
 }
 
-void ShapeFactory::Seek(const sf::Vector2f& targetPosition, 
-	float speed, float deltaTime, float range)
-{
+void 
+ShapeFactory::Seek(const sf::Vector2f& targetPosition, 
+	float speed, float deltaTime, float range) {
 	// Obtener posición actual de mi shape
 	sf::Vector2f shapePosition = m_shape->getPosition(); 
 
