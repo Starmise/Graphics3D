@@ -36,4 +36,8 @@ private:
   Window* m_window;
   EngineUtilities::TSharedPointer<Actor> Triangle;
   EngineUtilities::TSharedPointer<Actor> Circle;
+
+  //Array para la actividad de los 4 puntos
+  sf::Vector2f points[4];
+  int m_currentPoint = 0;
 };
