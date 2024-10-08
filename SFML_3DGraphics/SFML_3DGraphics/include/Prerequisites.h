@@ -14,8 +14,13 @@
 #include "Memory/TUniquePtr.h"
 #include "Memory/TWeakPointer.h"
 
+// Librerias DirectX
+#include <d3d11.h>
+#include <d3dcompiler.h>
+
+
 //Enums
-enum 
+enum
   ShapeType {
   EMPTY = 0,
   CIRCLE = 1,

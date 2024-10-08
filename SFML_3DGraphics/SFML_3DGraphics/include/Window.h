@@ -2,42 +2,42 @@
 #include "Prerequisites.h"
 
 class
-	Window {
+  Window {
 public:
-	Window() = default;
-	Window(int width, int height, const std::string& title);
-	~Window();
+  Window() = default;
+  Window(int width, int height, const std::string& title);
+  ~Window();
 
-	void
-		handleEvents();
+  void
+    handleEvents();
 
-	void
-		clear();
+  void
+    clear();
 
-	void
-		display();
+  void
+    display();
 
-	bool
-		isOpen() const;
+  bool
+    isOpen() const;
 
-	void
-		draw(const sf::Drawable& drawable);
+  void
+    draw(const sf::Drawable& drawable);
 
-	sf::RenderWindow*
-		getWindow();
+  sf::RenderWindow*
+    getWindow();
 
-	void
-		init();
+  void
+    init();
 
-	void
-		update();
+  void
+    update();
 
-	void
-		render();
+  void
+    render();
 
-	void
-		destroy();
+  void
+    destroy();
 
 private:
-	sf::RenderWindow* m_window;
+  sf::RenderWindow* m_window;
 };

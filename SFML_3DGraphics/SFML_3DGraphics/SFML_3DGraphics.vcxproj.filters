@@ -39,6 +39,9 @@
     <ClCompile Include="src\Actor.cpp">
       <Filter>Archivos de origen\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="src\Rasterizer.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\BaseApp.h">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="include\Actor.h">
       <Filter>Archivos de encabezado\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rasterizer.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

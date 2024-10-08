@@ -3,44 +3,44 @@
 #include "Component.h"
 #include "Window.h"
 
-class 
-	ShapeFactory : public Component {
+class
+  ShapeFactory : public Component {
 public:
-	ShapeFactory() = default;
+  ShapeFactory() = default;
 
-	virtual
-	~ShapeFactory() = default;
+  virtual
+    ~ShapeFactory() = default;
 
-	ShapeFactory(ShapeType shapeType) : 
-		m_shape(nullptr), m_ShapeType(ShapeType::EMPTY), Component(ComponentType::SHAPE) {}
-	
-	sf::Shape*
-		createShape(ShapeType shapeType);
+  ShapeFactory(ShapeType shapeType) :
+    m_shape(nullptr), m_ShapeType(ShapeType::EMPTY), Component(ComponentType::SHAPE) {}
 
-	void
-		update(float deltaTime) override {};
+  sf::Shape*
+    createShape(ShapeType shapeType);
 
-	void
-		render(Window window) override {};
+  void
+    update(float deltaTime) override {};
 
-	void
-		setPosition(float x, float y);
+  void
+    render(Window window) override {};
 
-	void
-		setPosition(const sf::Vector2f& position);
+  void
+    setPosition(float x, float y);
 
-	void
-		setFillColor(const sf::Color& color);
+  void
+    setPosition(const sf::Vector2f& position);
 
-	void
-		Seek(const sf::Vector2f& targetPosition, float speed, float deltaTime, float range);
+  void
+    setFillColor(const sf::Color& color);
 
-	sf::Shape* 
-		getShape() {
-		return m_shape;
-	}
+  void
+    Seek(const sf::Vector2f& targetPosition, float speed, float deltaTime, float range);
+
+  sf::Shape*
+    getShape() {
+    return m_shape;
+  }
 
 private:
-	sf::Shape* m_shape;
-	ShapeType m_ShapeType;
+  sf::Shape* m_shape;
+  ShapeType m_ShapeType;
 };
