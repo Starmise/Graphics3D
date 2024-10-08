@@ -9,6 +9,8 @@ Actor::Actor(std::string actorName) {
   addComponent(shape);
 
   // Setup Transform
+  EngineUtilities::TSharedPointer<ShapeFactory> transform = EngineUtilities::MakeShared<Transform>();
+  addComponent(transform);
 
   // Setup Sprite Actor
 }
@@ -20,7 +22,9 @@ Actor::update(float deltaTime) {
 void
 Actor::render(Window& window) {
   for (unsigned int i = 0; i < components.size(); i++) {
-    window.draw(*components[i].dynamic_pointer_cast<ShapeFactory>()->getShape());
+    if (components[i].dynamic_pointer_cast<ShapeFactory>()) {
+      window.draw(*components[i].dynamic_pointer_cast<ShapeFactory>()->getShape());
+    }
   }
 }
 
