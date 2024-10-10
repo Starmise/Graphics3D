@@ -2,6 +2,7 @@
 #include "Prerequisites.h"
 #include "Entity.h"
 #include "ShapeFactory.h"
+#include "Transform.h"
 
 class
   Actor : Entity {
@@ -27,6 +28,9 @@ public:
   void
     render(Window& window) override;
 
+  /**
+   * @brief Destruye el actor y libera los recursos asociados.
+   */
   void
     destroy();
 

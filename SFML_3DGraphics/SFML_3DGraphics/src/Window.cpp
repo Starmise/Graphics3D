@@ -1,5 +1,11 @@
 #include "Window.h"
 
+/*
+ * @brief Constructor de la clase Window
+ * @param width Ancho de la ventana
+ * @param height Alto de la ventana
+ * @param title Título de la ventana
+ */
 Window::Window(int width, int height, const std::string& title) {
   m_window = new sf::RenderWindow(sf::VideoMode(width, height), title);
 
@@ -15,6 +21,9 @@ Window::~Window() {
   delete m_window;
 }
 
+/*
+ * @brief Maneja los eventos de la ventana, como el cierre de la misma
+ */
 void
 Window::handleEvents() {
   sf::Event event;
@@ -25,6 +34,9 @@ Window::handleEvents() {
   }
 }
 
+/*
+ * @brief Limpia la ventana, preparándola para el siguiente ciclo de renderizado
+ */
 void
 Window::clear() {
   if (m_window != nullptr) {
@@ -45,6 +57,10 @@ Window::display() {
   }
 }
 
+/*
+ * @brief Verifica si la ventana está abierta
+ * @return true si la ventana está abierta, false de lo contrario
+ */
 bool
 Window::isOpen() const {
   if (m_window != nullptr) {
@@ -56,6 +72,10 @@ Window::isOpen() const {
   }
 }
 
+/*
+ * @brief Dibuja un objeto en la ventana
+ * @param drawable Objeto SFML que se va a dibujar en la ventana
+ */
 void
 Window::draw(const sf::Drawable& drawable) {
   if (m_window != nullptr) {
@@ -77,6 +97,9 @@ Window::getWindow() {
   }
 }
 
+/*
+ * @brief Libera los recursos de la ventana
+ */
 void
 Window::destroy() {
   SAFE_PTR_RELEASE(m_window);

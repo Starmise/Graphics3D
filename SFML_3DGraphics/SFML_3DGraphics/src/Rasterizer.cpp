@@ -1,7 +1,11 @@
 #include "Rasterizer.h"
 
+/*
+ * @brief Inicializa el estado de rasterización en el dispositivo Direct3D 11.
+ */
 void
 Rasterizer::init(ID3D11Device* device) {
+  // Descripción del estado de rasterización.
   D3D11_RASTERIZER_DESC rasterizerDesc = {};
   rasterizerDesc.FillMode = D3D11_FILL_SOLID;
   rasterizerDesc.CullMode = D3D11_CULL_BACK;
@@ -15,6 +19,8 @@ Rasterizer::init(ID3D11Device* device) {
 
   HRESULT hr = S_OK;
 
+
+  // Crear el estado de rasterización con la descripción y la variable dada.
   hr = device->CreateRasterizerState(&rasterizerDesc, &m_rasterizerState);
   if (FAILED(hr)) {
     std::cout << "Error creating the Rasterizer State" << std::endl;

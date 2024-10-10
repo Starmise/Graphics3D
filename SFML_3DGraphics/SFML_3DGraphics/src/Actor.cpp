@@ -9,7 +9,7 @@ Actor::Actor(std::string actorName) {
   addComponent(shape);
 
   // Setup Transform
-  EngineUtilities::TSharedPointer<ShapeFactory> transform = EngineUtilities::MakeShared<Transform>();
+  EngineUtilities::TSharedPointer<Transform> transform = EngineUtilities::MakeShared<Transform>();
   addComponent(transform);
 
   // Setup Sprite Actor
@@ -17,6 +17,14 @@ Actor::Actor(std::string actorName) {
 
 void
 Actor::update(float deltaTime) {
+  auto transform = getComponent<Transform>();
+  auto shape = getComponent<ShapeFactory>();
+
+  if (transform && shape) {
+    shape->setPosition(transform->getPosition());
+    shape->setRotation(transform->getRotation().x);
+    shape->setScale(transform->getScale());
+  }
 }
 
 void

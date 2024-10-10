@@ -17,9 +17,17 @@ public:
   sf::Shape*
     createShape(ShapeType shapeType);
 
+  /**
+   * @brief Actualiza el componente de malla.
+   * @param deltaTime El tiempo transcurrido desde la última actualización.
+   */
   void
     update(float deltaTime) override {};
 
+  /**
+   * @brief Renderiza el componente de malla.
+   * @param deviceContext Contexto del dispositivo para operaciones gráficas.
+   */
   void
     render(Window window) override {};
 
@@ -29,11 +37,27 @@ public:
   void
     setPosition(const sf::Vector2f& position);
 
+  /**
+   * @brief Colorea al componente con algún color
+   * @param color Color del componente
+   */
   void
     setFillColor(const sf::Color& color);
 
+  /**
+   * @brief Método que usa PuntaMenosCola para seguir al cursor
+   */
   void
     Seek(const sf::Vector2f& targetPosition, float speed, float deltaTime, float range);
+
+  void
+    setPosition(const sf::Vector2f& pos);
+
+  void
+    setRotation(float angle);
+
+  void
+    setScale(const sf::Vector2f& scl);
 
   sf::Shape*
     getShape() {
