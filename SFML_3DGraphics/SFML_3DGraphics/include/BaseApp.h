@@ -29,6 +29,9 @@ public:
   void
     cleanup();
 
+  void
+    updateMovement(float deltaTime, EngineUtilities::TSharedPointer<Actor> circle);
+
 private:
   sf::Clock clock;
   sf::Time deltaTime;

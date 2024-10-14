@@ -46,12 +46,9 @@ public:
 
   /**
    * @brief Método que usa PuntaMenosCola para seguir al cursor
-   */
-  void
-    Seek(const sf::Vector2f& targetPosition, float speed, float deltaTime, float range);
 
   void
-    setPosition(const sf::Vector2f& pos);
+    Seek(const sf::Vector2f& targetPosition, float speed, float deltaTime, float range);*/
 
   void
     setRotation(float angle);

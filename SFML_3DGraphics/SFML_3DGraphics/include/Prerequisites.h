@@ -14,9 +14,13 @@
 #include "Memory/TUniquePtr.h"
 #include "Memory/TWeakPointer.h"
 
+// Imgui
+#include <imgui.h>
+#include <imgui-SFML.h>
+
 // Librerias DirectX
-#include <d3d11.h>
-#include <d3dcompiler.h>
+//#include <d3d11.h>
+//#include <d3dcompiler.h>
 
 
 //Enums

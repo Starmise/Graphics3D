@@ -15,9 +15,13 @@ Window::Window(int width, int height, const std::string& title) {
   else {
     MESSAGE("Window", "Window", "OK");
   }
+
+  // Initialize the InGui Resource
+  ImGui::SFML::Init(*m_window);
 }
 
 Window::~Window() {
+  delete m_window;
   delete m_window;
 }
 
@@ -28,6 +32,8 @@ void
 Window::handleEvents() {
   sf::Event event;
   while (m_window->pollEvent(event))
+    // Process Input Events into ImGui
+    ImGui::SFML::ProcessEvent(event);
   {
     if (event.type == sf::Event::Closed)
       m_window->close();
@@ -97,10 +103,25 @@ Window::getWindow() {
   }
 }
 
+void
+Window::update() {
+  // Almacena el deltaTime una sola vez
+  deltaTime = clock.restart();
+
+  // Usa el deltaTime para actualizar ImGui
+  ImGui::SFML::Update(*m_window, deltaTime);
+}
+
+void
+Window::render() {
+  ImGui::SFML::Render(*m_window);
+}
+
 /*
  * @brief Libera los recursos de la ventana
  */
 void
 Window::destroy() {
+  ImGui::SFML::Shutdown();
   SAFE_PTR_RELEASE(m_window);
 }

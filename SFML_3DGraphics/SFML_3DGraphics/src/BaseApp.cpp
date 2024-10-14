@@ -61,39 +61,21 @@ BaseApp::initialize() {
 
 void
 BaseApp::update() {
+  m_window->update();
+
+  // Mouse Position
   sf::Vector2i mousePosition = sf::Mouse::getPosition(*m_window->getWindow());
   sf::Vector2f mousePosF(static_cast<float>(mousePosition.x),
     static_cast<float>(mousePosition.y));
 
   if (!Triangle.isNull()) {
-    Triangle->update(deltaTime.asSeconds());
+    Triangle->update(m_window->deltaTime.asSeconds());
   }
-
   if (!Circle.isNull()) {
-    Circle->update(deltaTime.asSeconds());
-    // Hacer que el círculo siga al mouse
-    // Circle->getComponent<ShapeFactory>()->Seek(mousePosF, 200.0f, deltaTime.asSeconds(), 20.0f);
-
-    // Obtener el punto actual al que debe ir el círculo
-    sf::Vector2f targetPoint = points[m_currentPoint];
-
-    // Usar Seek para mover el círculo hacia el punto actual
-    Circle->getComponent<ShapeFactory>()->Seek(targetPoint, 200.0f, deltaTime.asSeconds(), 10.0f);
-
-    // Comprobar si el círculo ha alcanzado el punto actual
-    sf::Vector2f circlePosition = Circle->getComponent<ShapeFactory>()->getShape()->getPosition();
-
-    // Calcular distancia entre el actor y el punto actual
-    float distance = std::sqrt(std::pow(circlePosition.x - targetPoint.x, 2) + std::pow(circlePosition.y - targetPoint.y, 2));
-
-    // Pasar al siguiente punto si está suficientemente cerca
-    if (distance < 10.0f) {
-      m_currentPoint = (m_currentPoint + 1);
-      if (m_currentPoint > 3) {
-        m_currentPoint = 0;
-      }
-    }
+    Circle->update(m_window->deltaTime.asSeconds());
+    updateMovement(m_window->deltaTime.asSeconds(), Circle);
   }
+
 }
 
 void
@@ -101,6 +83,12 @@ BaseApp::render() {
   m_window->clear();
   Circle->render(*m_window);
   Triangle->render(*m_window);
+
+  ImGui::Begin("Hello Wolrd!");
+  ImGui::Text("This is a simple example");
+  ImGui::End();
+
+  m_window->render();
   m_window->display();
 }
 
@@ -108,4 +96,33 @@ void
 BaseApp::cleanup() {
   m_window->destroy();
   delete m_window;
+}
+
+void
+BaseApp::updateMovement(float deltaTime, EngineUtilities::TSharedPointer<Actor> circle) {
+  // Verificar si el Circle es nulo
+  if (!circle || circle.isNull()) return;
+
+  // Obtener el componente Transform
+  auto transform = circle->getComponent<Transform>();
+  if (transform.isNull()) return;
+
+  // Posición actual del destino (punto de recorrido)
+  sf::Vector2f targetPos = points[m_currentPoint];
+
+  // Llamar al Seek del Transform
+  transform->Seek(targetPos, 200.0f, deltaTime, 10.0f);
+
+  // Obtener la posición actual del actor desde Transform
+  sf::Vector2f currentPos = transform->getPosition();
+
+  // Comprobar si el actor ha alcanzado el destino (o está cerca)
+  float distanceToTarget = std::sqrt(std::pow(targetPos.x - currentPos.x, 2) + std::pow(targetPos.y - currentPos.y, 2));
+
+  if (distanceToTarget < 10.0f) { // Umbral para considerar que ha llegado
+    m_currentPoint = (m_currentPoint + 1);
+    if (m_currentPoint > 3) {
+      m_currentPoint = 0;
+    }
+  }
 }
