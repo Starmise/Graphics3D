@@ -31,12 +31,23 @@ Window::~Window() {
 void
 Window::handleEvents() {
   sf::Event event;
-  while (m_window->pollEvent(event))
-    // Process Input Events into ImGui
+  while (m_window->pollEvent(event)) {
+    // Procesar los inputs de IMGUI
     ImGui::SFML::ProcessEvent(event);
-  {
-    if (event.type == sf::Event::Closed)
+    switch (event.type) {
+    case sf::Event::Closed:
       m_window->close();
+      break;
+      // Manejar el evento de redimensionar
+    case sf::Event::Resized:
+      unsigned int width = event.size.width;
+      unsigned int height = event.size.height;
+
+      m_view = m_window->getView();
+      m_view.setSize(static_cast<float>(width), static_cast<float>(height));
+      m_window->setView(m_view);
+      break;
+    }
   }
 }
 

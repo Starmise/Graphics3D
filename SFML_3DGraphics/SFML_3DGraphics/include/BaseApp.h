@@ -39,8 +39,11 @@ private:
   Window* m_window;
   EngineUtilities::TSharedPointer<Actor> Triangle;
   EngineUtilities::TSharedPointer<Actor> Circle;
+  EngineUtilities::TSharedPointer<Actor> Track;
 
   //Array para la actividad de los 4 puntos
-  sf::Vector2f points[4];
+  sf::Vector2f points[9];
   int m_currentPoint = 0;
+
+  sf::Texture texture;
 };

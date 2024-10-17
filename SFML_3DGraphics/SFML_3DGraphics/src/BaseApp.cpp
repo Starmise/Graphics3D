@@ -25,10 +25,15 @@ BaseApp::initialize() {
   }
 
   // Al iniciar el programa, establecer los 4 puntos de destino
-  points[0] = sf::Vector2f(100.0f, 100.0f);
-  points[1] = sf::Vector2f(600.0f, 200.0f);
-  points[2] = sf::Vector2f(100.0f, 400.0f);
-  points[3] = sf::Vector2f(600.0f, 500.0f);
+  points[0] = sf::Vector2f(25.0f, 560.0f);
+  points[1] = sf::Vector2f(25.0f, 20.0f);
+  points[2] = sf::Vector2f(700.0f, 20.0f);
+  points[3] = sf::Vector2f(700.0f, 200.0f);
+  points[4] = sf::Vector2f(500.0f, 200.0f);
+  points[5] = sf::Vector2f(500.0f, 120.0f);
+  points[6] = sf::Vector2f(350.0f, 120.0f);
+  points[7] = sf::Vector2f(350.0f, 340.0f);
+  points[8] = sf::Vector2f(700.0f, 340.0f);
   /*shape = new sf::CircleShape(10.0f);
 
   if (!shape) {
@@ -42,7 +47,7 @@ BaseApp::initialize() {
     Circle->getComponent<ShapeFactory>()->createShape(ShapeType::CIRCLE);
     Circle->getComponent<ShapeFactory>()->setFillColor(sf::Color::Magenta);
 
-    Circle->getComponent<Transform>()->setPosition(sf::Vector2(200.0f, 200.0f));
+    Circle->getComponent<Transform>()->setPosition(sf::Vector2(650.0f, 560.0f));
     Circle->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
     Circle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
   }
@@ -54,6 +59,23 @@ BaseApp::initialize() {
     Triangle->getComponent<Transform>()->setPosition(sf::Vector2(150.0f, 200.0f));
     Triangle->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
     Triangle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+  }
+
+  // Track Actor
+  Track = EngineUtilities::MakeShared<Actor>("Track");
+  if (!Track.isNull()) {
+    Track->getComponent<ShapeFactory>()->createShape(ShapeType::RECTANGLE);
+
+    // Establecer posición, rotación y escala desde Transform
+    Track->getComponent<Transform>()->setPosition(sf::Vector2f(0.0f, 0.0f));
+    Track->getComponent<Transform>()->setRotation(sf::Vector2f(0.0f, 0.0f));
+    Track->getComponent<Transform>()->setScale(sf::Vector2f(40.0f, 60.0f));
+
+    if (!texture.loadFromFile("KartMap.png")) {
+      std::cout << "Error de carga de textura" << std::endl;
+      return -1;
+    }
+    Track->getComponent<ShapeFactory>()->getShape()->setTexture(&texture);
   }
 
   return true;
@@ -75,14 +97,24 @@ BaseApp::update() {
     Circle->update(m_window->deltaTime.asSeconds());
     updateMovement(m_window->deltaTime.asSeconds(), Circle);
   }
+  if (!Track.isNull()) {
+    Track->update(m_window->deltaTime.asSeconds());
+  }
 
 }
 
 void
 BaseApp::render() {
   m_window->clear();
-  Circle->render(*m_window);
-  Triangle->render(*m_window);
+  if (!Track.isNull()) {
+    Track->render(*m_window);
+  }
+  if (!Circle.isNull()) {
+    Circle->render(*m_window);
+  }
+  if (!Triangle.isNull()) {
+    Triangle->render(*m_window);
+  }
 
   ImGui::Begin("Hello Wolrd!");
   ImGui::Text("This is a simple example");
@@ -121,7 +153,7 @@ BaseApp::updateMovement(float deltaTime, EngineUtilities::TSharedPointer<Actor> 
 
   if (distanceToTarget < 10.0f) { // Umbral para considerar que ha llegado
     m_currentPoint = (m_currentPoint + 1);
-    if (m_currentPoint > 3) {
+    if (m_currentPoint > 8) {
       m_currentPoint = 0;
     }
   }
