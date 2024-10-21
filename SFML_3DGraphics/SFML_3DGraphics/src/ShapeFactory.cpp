@@ -15,19 +15,18 @@ ShapeFactory::createShape(ShapeType shapeType) {
   }
   case CIRCLE: {
     sf::CircleShape* circle = new sf::CircleShape(20.0f);
-    circle->setFillColor(sf::Color::Red);
     m_shape = circle;
     return circle;
   }
   case RECTANGLE: {
     sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2(20.0f, 10.0f));
-    rectangle->setFillColor(sf::Color::Green);
+    //rectangle->setFillColor(sf::Color::Green);
     m_shape = rectangle;
     return rectangle;
   }
   case TRIANGLE: {
     sf::CircleShape* triangle = new sf::CircleShape(25.0f, 3);
-    triangle->setFillColor(sf::Color::Blue);
+    //triangle->setFillColor(sf::Color::White);
     m_shape = triangle;
     return triangle;
   }

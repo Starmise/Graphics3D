@@ -46,4 +46,5 @@ private:
   int m_currentPoint = 0;
 
   sf::Texture texture;
+  sf::Texture Rob;
 };

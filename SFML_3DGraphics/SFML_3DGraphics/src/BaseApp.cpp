@@ -45,11 +45,16 @@ BaseApp::initialize() {
   Circle = EngineUtilities::MakeShared<Actor>("Circle");
   if (!Circle.isNull()) {
     Circle->getComponent<ShapeFactory>()->createShape(ShapeType::CIRCLE);
-    Circle->getComponent<ShapeFactory>()->setFillColor(sf::Color::Magenta);
 
     Circle->getComponent<Transform>()->setPosition(sf::Vector2(650.0f, 560.0f));
     Circle->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
     Circle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+
+    if (!Rob.loadFromFile("tile011.png")) {
+      std::cout << "Error de carga de textura" << std::endl;
+      return -1;
+    }
+    Circle->getComponent<ShapeFactory>()->getShape()->setTexture(&Rob);
   }
 
   // Triangle Actor
