@@ -20,7 +20,6 @@ ShapeFactory::createShape(ShapeType shapeType) {
   }
   case RECTANGLE: {
     sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2(20.0f, 10.0f));
-    //rectangle->setFillColor(sf::Color::Green);
     m_shape = rectangle;
     return rectangle;
   }

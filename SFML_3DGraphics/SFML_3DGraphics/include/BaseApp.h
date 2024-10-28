@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "ShapeFactory.h"
 #include "Actor.h"
+#include "UserInterface.h"
 
 class
   BaseApp {
@@ -47,4 +48,6 @@ private:
 
   sf::Texture texture;
   sf::Texture Rob;
+
+  UserInterface m_GUI;
 };
