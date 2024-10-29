@@ -25,6 +25,9 @@
     <Filter Include="IMGUI">
       <UniqueIdentifier>{8a591497-ca21-450a-b3df-19860e33cc18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Services">
+      <UniqueIdentifier>{805874ba-1812-4e6a-ab38-14dd9812a0f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="include\UserInterface.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Services\NotificationService.h">
+      <Filter>Archivos de encabezado\Services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

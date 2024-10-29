@@ -9,7 +9,7 @@ class
   BaseApp {
 public:
   BaseApp() = default;
-  ~BaseApp() = default;
+  ~BaseApp();
 
   //Función encargada de correr la aplicación en main
   int

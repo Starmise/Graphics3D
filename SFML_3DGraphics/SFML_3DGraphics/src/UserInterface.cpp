@@ -80,3 +80,13 @@ UserInterface::setupGUIStyle() {
   // Textos
   colors[ImGuiCol_Text] = ImVec4(0.90f, 0.90f, 0.90f, 1.00f); // Texto claro
 }
+
+void
+UserInterface::console(std::map<ConsolErrorType, std::string> programMessages) {
+  ImGui::Begin("Console");
+  for (const auto& pair : programMessages) {
+    ImGui::Text("Code: %d - Message: %s", pair.first, pair.second.c_str());
+  }
+  ImGui::End();
+
+}
