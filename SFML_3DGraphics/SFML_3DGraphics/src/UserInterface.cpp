@@ -1,24 +1,39 @@
 #include "UserInterface.h"
 #include "Window.h"
 
+/**
+ * @brief Configura el estilo y la apariencia de la interfaz gráfica.
+ */
 void
 UserInterface::init() {
   // Setup GUI Style
   setupGUIStyle();
 }
 
+/**
+ * @brief Actualiza la interfaz de usuario.
+ */
 void
 UserInterface::update() {
 }
 
+/**
+ * @brief Renderiza los elementos visuales de la UI en pantalla.
+ */
 void
 UserInterface::render() {
 }
 
+/**
+ * @brief Libera los recursos de la interfaz de usuario.
+ */
 void
 UserInterface::destroy() {
 }
 
+/**
+ * @brief Configura el estilo y los colores de la GUI mediante ImGUI
+ */
 void
 UserInterface::setupGUIStyle() {
   ImGuiStyle& style = ImGui::GetStyle();
@@ -81,6 +96,10 @@ UserInterface::setupGUIStyle() {
   colors[ImGuiCol_Text] = ImVec4(0.90f, 0.90f, 0.90f, 1.00f); // Texto claro
 }
 
+/**
+ * @brief Muestra una consola en la interfaz de usuario.
+ * @param programMessages Mapa que asocia códigos de error con sus mensajes
+ */
 void
 UserInterface::console(std::map<ConsolErrorType, std::string> programMessages) {
   ImGui::Begin("Console");

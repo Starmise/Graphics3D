@@ -1,42 +1,59 @@
 ﻿#pragma once
 #include "Prerequisites.h"
 
-class NotificationService {
+class 
+  NotificationService {
 private:
-  // Constructor privado para evitar instancias múltiples
-  NotificationService() {}
-
-  // Eliminar el operador de copia y asignación para evitar duplicaciones
-  NotificationService(const NotificationService&) = delete;
-  NotificationService& operator=(const NotificationService&) = delete;
+  /**
+   * @brief Constructor privado para evitar instancias múltiples.
+   */
+  NotificationService() = default;
 
 public:
-  static NotificationService& getInstance() {
-    static NotificationService instance;
-    return instance;
+  /**
+  * @brief Accede a la instancia singleton mediante un unique_ptr.
+  * @return Referencia a la instancia de NotificationService.
+  */
+  static 
+    NotificationService& getInstance() {
+    static std::unique_ptr<NotificationService> instance(new NotificationService());
+    return *instance;
   }
 
-  void addMessage(ConsolErrorType code, const std::string& message) {
-    m_programMessages[code] = message;
+  /**
+   * @brief Agrega un mensaje de notificación.
+   * @param errType Tipo de error de la notificación.
+   * @param message Mensaje a agregar.
+   */
+  void addMessage(ConsolErrorType errType, const std::string& message) {
+    m_programMessages[errType] = message;
   }
 
-  std::string getMessage(ConsolErrorType code) const {
-    auto it = m_programMessages.find(code);
-    if (it != m_programMessages.end()) {
-      return it->second;
-    }
-    else {
-      return "Message not found";
-    }
-  }
-
+  /**
+   * @brief Muestra todos los mensajes en consola.
+   */
   void showAllMessages() const {
     for (const auto& pair : m_programMessages) {
       std::cout << "Code: " << pair.first << " - Message: " << pair.second << std::endl;
     }
   }
 
-  // Método para guardar los mensajes en un archivo
+  /**
+   * @brief Obtiene un mensaje según el código de error.
+   * @param errType Tipo de error del mensaje.
+   */
+  std::string getMessage(ConsolErrorType errType) const {
+    auto it = m_programMessages.find(errType);
+    if (it != m_programMessages.end()) {
+      return it->second;
+    }
+    return "Message not found";
+  }
+
+  /**
+   * @brief Guarda los mensajes en un archivo.
+   * @param filename Nombre del archivo donde se guardarán los mensajes.
+   */
   void saveMessagesToFile(const std::string& filename) const {
     std::ofstream file(filename);
     if (!file.is_open()) {
@@ -44,19 +61,29 @@ public:
       return;
     }
 
+    /**
+     * @brief Para cada "m_programMessages", escribe el código de error
+     * (`pair.first`) y el mensaje correspondiente (`pair.second`).
+     */
     for (const auto& pair : m_programMessages) {
       file << "Code: " << pair.first << " - Message: " << pair.second << "\n";
     }
 
+    /**
+    *  @brief Tras escribir los mensajes cierra el archivo para guardarlos y liberar recursos
+    */
     file.close();
     std::cout << "Mensajes guardados en el archivo: " << filename << std::endl;
   }
 
+  /**
+   * @brief Obtiene las notificaciones almacenadas.
+   */
   std::map<ConsolErrorType, std::string>& getNotifications() {
     return m_programMessages;
   }
 
 private:
-  // Mapa para almacenar los mensajes del programa
+  // Mapa para almacenar los mensajes del progeama
   std::map<ConsolErrorType, std::string> m_programMessages;
 };

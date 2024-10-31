@@ -4,6 +4,7 @@
 #include "ShapeFactory.h"
 #include "Actor.h"
 #include "UserInterface.h"
+#include "Services/NotificationService.h"
 
 class
   BaseApp {

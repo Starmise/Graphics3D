@@ -1,12 +1,13 @@
 #include "BaseApp.h"
-#include "Services/NotificationService.h"
 
 BaseApp::~BaseApp()
 {
-  NotificationService& notifier = NotificationService::getInstance();
-  notifier.saveMessagesToFile("LogData.txt");
+  NotificationService::getInstance().saveMessagesToFile("LogData.txt");
 }
 
+/**
+ * @brief  Método principal queinicializa el programa, gestiona eventos y renderiza actores.
+ */
 int
 BaseApp::run() {
   NotificationService& notifier = NotificationService::getInstance();
@@ -32,12 +33,16 @@ BaseApp::run() {
   return 0;
 }
 
+/**
+ * @brief Inicializa la ventana principal y configura los actores de la aplicación.
+ */
 bool
 BaseApp::initialize() {
   NotificationService& notifier = NotificationService::getInstance();
 
   m_window = new Window(800, 600, "Starmise Engine");
   if (!m_window) {
+    notifier.addMessage(ConsolErrorType::ERROR, "Error on window creation, pointer is null");
     ERROR("BaseApp", "initialize", "Error on window creation, var is null");
     return false;
   }
@@ -69,7 +74,7 @@ BaseApp::initialize() {
     Circle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
 
     if (!Rob.loadFromFile("tile011.png")) {
-      std::cout << "Error de carga de textura" << std::endl;
+      notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
       return -1;
     }
     Circle->getComponent<ShapeFactory>()->getShape()->setTexture(&Rob);
@@ -98,7 +103,7 @@ BaseApp::initialize() {
     Track->getComponent<Transform>()->setScale(sf::Vector2f(40.0f, 60.0f));
 
     if (!texture.loadFromFile("KartMap.png")) {
-      std::cout << "Error de carga de textura" << std::endl;
+      notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
       return -1;
     }
     Track->getComponent<ShapeFactory>()->getShape()->setTexture(&texture);
@@ -107,6 +112,9 @@ BaseApp::initialize() {
   return true;
 }
 
+/**
+ * @brief Actualiza el estado de la ventana y los actores en cada frame.
+ */
 void
 BaseApp::update() {
   m_window->update();
@@ -137,6 +145,9 @@ BaseApp::update() {
   }*/
 }
 
+/**
+ * @brief Renderiza la ventana principal, los actores y la interfaz ImGui.
+ */
 void
 BaseApp::render() {
   NotificationService& notifier = NotificationService::getInstance();
@@ -223,17 +234,27 @@ BaseApp::render() {
 
   ImGui::End(); // End of the Cyberpunk Panel
 
+  // Configuramos la consola y le pasamos los mensajes
   m_GUI.console(notifier.getNotifications());
+
   m_window->render();
   m_window->display();
 }
 
+/**
+ * @brief  Libera recursos y cierra la ventana.
+ */
 void
 BaseApp::cleanup() {
   m_window->destroy();
   delete m_window;
 }
 
+/**
+ * @brief Actualiza el movimiento de un actor siguiendo los puntos de recorrido definidos.
+ * @param deltaTime: Tiempo de delta para sincronizar el movimiento.
+ * @param circle: Puntero compartido al actor "Circle".
+ */
 void
 BaseApp::updateMovement(float deltaTime, EngineUtilities::TSharedPointer<Actor> circle) {
   // Verificar si el Circle es nulo

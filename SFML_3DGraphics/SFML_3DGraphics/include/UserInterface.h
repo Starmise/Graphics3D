@@ -3,29 +3,50 @@
 
 class Window;
 
-class UserInterface
-{
+class 
+  UserInterface {
 public:
+
+  /**
+   * @brief Constructor por defecto de UserInterface.
+   */
   UserInterface() = default;
+
+  /**
+   * @brief Destructor por defecto de UserInterface.
+   */
   ~UserInterface() = default;
 
-  void
-    init();
+  /**
+   * @brief Inicializa los elementos de la interfaz de usuario.
+   */
+  void init();
 
-  void
-    update();
+  /**
+   * @brief Actualiza el estado de la interfaz de usuario.
+   */
+  void update();
 
-  void
-    render();
+  /**
+   * @brief Renderiza la interfaz de usuario en la ventana.
+   */
+  void render();
 
-  void
-    destroy();
+  /**
+   * @brief Libera los recursos utilizados por la interfaz de usuario.
+   */
+  void destroy();
 
-  void
-    setupGUIStyle();
+  /**
+   * @brief Configura el estilo visual de la interfaz de usuario.
+   */
+  void setupGUIStyle();
 
-  void
-    console(std::map<ConsolErrorType, std::string> programMessages);
+  /**
+   * @brief Muestra mensajes en la consola de la interfaz.
+   * @param programMessages Mapa de errores del programa con sus respectivos mensajes.
+   */
+  void console(std::map<ConsolErrorType, std::string> programMessages);
 
 private:
 
