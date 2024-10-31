@@ -34,6 +34,12 @@ public:
   void
     destroy();
 
+  /**
+   * @brief Función para obtener únicamente el nombre del actor
+   */
+  std::string
+    getName() const;
+
   /*
   * @brief Obtiene un componente específico del actor
   * @tparam T Tipo de componente que se va a obtener

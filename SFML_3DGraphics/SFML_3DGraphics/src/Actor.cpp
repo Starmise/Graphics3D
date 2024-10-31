@@ -39,3 +39,8 @@ Actor::render(Window& window) {
 void
 Actor::destroy() {
 }
+
+std::string 
+Actor::getName() const {
+  return m_name;
+}

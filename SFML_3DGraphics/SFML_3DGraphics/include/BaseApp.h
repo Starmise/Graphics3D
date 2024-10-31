@@ -42,6 +42,8 @@ private:
   EngineUtilities::TSharedPointer<Actor> Circle;
   EngineUtilities::TSharedPointer<Actor> Track;
 
+  std::vector< EngineUtilities::TSharedPointer<Actor>> m_actors;
+
   //Array para la actividad de los 4 puntos
   sf::Vector2f points[9];
   int m_currentPoint = 0;

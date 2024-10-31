@@ -34,6 +34,8 @@ BaseApp::run() {
 
 bool
 BaseApp::initialize() {
+  NotificationService& notifier = NotificationService::getInstance();
+
   m_window = new Window(800, 600, "Starmise Engine");
   if (!m_window) {
     ERROR("BaseApp", "initialize", "Error on window creation, var is null");
@@ -85,6 +87,9 @@ BaseApp::initialize() {
   // Track Actor
   Track = EngineUtilities::MakeShared<Actor>("Track");
   if (!Track.isNull()) {
+    notifier.addMessage(ConsolErrorType::ERROR, "Error - Nullpointer Reference");
+    notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
+
     Track->getComponent<ShapeFactory>()->createShape(ShapeType::RECTANGLE);
 
     // Establecer posición, rotación y escala desde Transform
@@ -111,7 +116,16 @@ BaseApp::update() {
   sf::Vector2f mousePosF(static_cast<float>(mousePosition.x),
     static_cast<float>(mousePosition.y));
 
-  if (!Triangle.isNull()) {
+  for (auto& actor : m_actors) {
+    if (!actor.isNull()) {
+      actor->update(m_window->deltaTime.asSeconds());
+      if (actor->getName() == "Circle") {
+        updateMovement(m_window->deltaTime.asSeconds(), actor);
+      }
+    }
+  }
+
+  /*if (!Triangle.isNull()) {
     Triangle->update(m_window->deltaTime.asSeconds());
   }
   if (!Circle.isNull()) {
@@ -120,8 +134,7 @@ BaseApp::update() {
   }
   if (!Track.isNull()) {
     Track->update(m_window->deltaTime.asSeconds());
-  }
-
+  }*/
 }
 
 void
@@ -129,6 +142,13 @@ BaseApp::render() {
   NotificationService& notifier = NotificationService::getInstance();
 
   m_window->clear();
+  for (auto& actor : m_actors) {
+    if (!actor.isNull()) {
+      actor->render(*m_window);
+    }
+  }
+
+  /*m_window->clear();
   if (!Track.isNull()) {
     Track->render(*m_window);
   }
@@ -137,7 +157,7 @@ BaseApp::render() {
   }
   if (!Triangle.isNull()) {
     Triangle->render(*m_window);
-  }
+  }*/
 
   // Arreglo temporal de Transforms para los objetos en la jerarquía
   static Transform transforms[4]; // Supongamos que hay 5 objetos en la jerarquía
