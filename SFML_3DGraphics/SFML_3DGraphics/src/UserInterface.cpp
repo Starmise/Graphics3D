@@ -109,3 +109,7 @@ UserInterface::console(std::map<ConsolErrorType, std::string> programMessages) {
   ImGui::End();
 
 }
+
+void 
+UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>> actors) {
+}

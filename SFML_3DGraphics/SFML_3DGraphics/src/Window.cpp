@@ -70,6 +70,9 @@ Window::clear() {
   else {
     ERROR("Window", "clear", "CHECK FOR WINDOW POINTER DATA");
   }
+  if (m_renderTexture.getSize().x > 0 && m_renderTexture.getSize().y > 0) {
+    m_renderTexture.clear();
+  }
 }
 
 void
@@ -79,9 +82,6 @@ Window::display() {
   }
   else {
     ERROR("Window", "display", "CHECK FOR WINDOW POINTER DATA");
-  }
-  if (m_renderTexture.getSize().x > 0 && m_renderTexture.getSize().y > 0) {
-    m_renderTexture.clear();
   }
 }
 

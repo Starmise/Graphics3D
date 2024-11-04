@@ -78,6 +78,7 @@ BaseApp::initialize() {
       return -1;
     }
     Circle->getComponent<ShapeFactory>()->getShape()->setTexture(&Rob);
+    m_actors.push_back(Circle);
   }
 
   // Triangle Actor
@@ -87,6 +88,7 @@ BaseApp::initialize() {
     Triangle->getComponent<Transform>()->setPosition(sf::Vector2(150.0f, 200.0f));
     Triangle->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
     Triangle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+    m_actors.push_back(Triangle);
   }
 
   // Track Actor
@@ -107,6 +109,7 @@ BaseApp::initialize() {
       return -1;
     }
     Track->getComponent<ShapeFactory>()->getShape()->setTexture(&texture);
+    m_actors.push_back(Track);
   }
 
   return true;
@@ -133,15 +136,15 @@ BaseApp::update() {
     }
   }
 
-  /*if (!Triangle.isNull()) {
-    Triangle->update(m_window->deltaTime.asSeconds());
+  /*if (!triangle.isnull()) {
+    triangle->update(m_window->deltatime.asseconds());
   }
-  if (!Circle.isNull()) {
-    Circle->update(m_window->deltaTime.asSeconds());
-    updateMovement(m_window->deltaTime.asSeconds(), Circle);
+  if (!circle.isnull()) {
+    circle->update(m_window->deltatime.asseconds());
+    updatemovement(m_window->deltatime.asseconds(), circle);
   }
-  if (!Track.isNull()) {
-    Track->update(m_window->deltaTime.asSeconds());
+  if (!track.isnull()) {
+    track->update(m_window->deltatime.asseconds());
   }*/
 }
 
@@ -170,69 +173,10 @@ BaseApp::render() {
     Triangle->render(*m_window);
   }*/
 
-  // Arreglo temporal de Transforms para los objetos en la jerarquía
-  static Transform transforms[4]; // Supongamos que hay 5 objetos en la jerarquía
-
-  // **ImGui: Cyberpunk Panel**
-  ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
-  ImGui::SetNextWindowSize(ImVec2(300, 400), ImGuiCond_FirstUseEver);
-  ImGui::Begin("Cyberpunk Panel");
-  ImGui::Text("Welcome World!");
-
-  // **Hierarchy Window**
-  ImGui::Begin("Hierarchy");
-
-  // List of objects in the hierarchy (Camera, Light, Player, etc.)
-  static const char* items[] = { "Camera", "Light", "Player", "Enemy" };
-  static int selected = -1; // Index of the selected item
-
-  // Display the list of objects
-  for (int i = 0; i < IM_ARRAYSIZE(items); i++) {
-    // Create a unique identifier for each item
-    char label[128];
-    sprintf(label, "%s##%d", items[i], i);
-
-    // Show the item as selectable
-    if (ImGui::Selectable(label, selected == i)) {
-      selected = i; // Update the selected item
-    }
-  }
-
-  ImGui::End(); // End of the Hierarchy window
-
-  // **Inspector Window**
-  ImGui::Begin("Inspector");
-
-  if (selected != -1) {
-    // Access the Transform for the selected object
-    Transform& transform = transforms[selected];
-
-    // Display and allow editing of the Transform properties
-    sf::Vector2f& position = transform.getPosition();
-    ImGui::DragFloat2("Position", &position.x, 0.1f); // Edit position
-
-    sf::Vector2f& rotation = transform.getRotation();
-    ImGui::DragFloat2("Rotation", &rotation.x, 0.1f); // Edit rotation
-
-    sf::Vector2f& scale = transform.getScale();
-    ImGui::DragFloat2("Scale", &scale.x, 0.1f); // Edit scale
-  }
-  else {
-    ImGui::Text("Select an item from the hierarchy.");
-  }
-
-  ImGui::End(); // End of the Inspector window
-
-  // Accept button
-  if (ImGui::Button("Accept")) {
-    // Action on button press
-  }
 
   // Mostrar el render en ImGui
   m_window->renderToTexture();  // Finaliza el render a la textura
   m_window->showInImGui();      // Muestra la textura en ImGui
-
-  ImGui::End(); // End of the Cyberpunk Panel
 
   // Configuramos la consola y le pasamos los mensajes
   m_GUI.console(notifier.getNotifications());
