@@ -40,7 +40,7 @@ bool
 BaseApp::initialize() {
   NotificationService& notifier = NotificationService::getInstance();
 
-  m_window = new Window(800, 600, "Starmise Engine");
+  m_window = new Window(1280, 720, "Starmise Engine");
   if (!m_window) {
     notifier.addMessage(ConsolErrorType::ERROR, "Error on window creation, pointer is null");
     ERROR("BaseApp", "initialize", "Error on window creation, var is null");
@@ -63,6 +63,27 @@ BaseApp::initialize() {
     ERROR("BaseApp", "initialize", "Error on shape creation, var is null");
     return false;
   }*/
+
+  // Track Actor
+  Track = EngineUtilities::MakeShared<Actor>("Track");
+  if (!Track.isNull()) {
+    notifier.addMessage(ConsolErrorType::ERROR, "Error - Nullpointer Reference");
+    notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
+
+    Track->getComponent<ShapeFactory>()->createShape(ShapeType::RECTANGLE);
+
+    // Establecer posición, rotación y escala desde Transform
+    Track->getComponent<Transform>()->setPosition(sf::Vector2f(0.0f, 0.0f));
+    Track->getComponent<Transform>()->setRotation(sf::Vector2f(0.0f, 0.0f));
+    Track->getComponent<Transform>()->setScale(sf::Vector2f(40.0f, 60.0f));
+
+    if (!texture.loadFromFile("KartMap.png")) {
+      notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
+      return -1;
+    }
+    Track->getComponent<ShapeFactory>()->getShape()->setTexture(&texture);
+    m_actors.push_back(Track);
+  }
 
   //Circle Actor
   Circle = EngineUtilities::MakeShared<Actor>("Circle");
@@ -90,28 +111,7 @@ BaseApp::initialize() {
     Triangle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
     m_actors.push_back(Triangle);
   }
-
-  // Track Actor
-  Track = EngineUtilities::MakeShared<Actor>("Track");
-  if (!Track.isNull()) {
-    notifier.addMessage(ConsolErrorType::ERROR, "Error - Nullpointer Reference");
-    notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
-
-    Track->getComponent<ShapeFactory>()->createShape(ShapeType::RECTANGLE);
-
-    // Establecer posición, rotación y escala desde Transform
-    Track->getComponent<Transform>()->setPosition(sf::Vector2f(0.0f, 0.0f));
-    Track->getComponent<Transform>()->setRotation(sf::Vector2f(0.0f, 0.0f));
-    Track->getComponent<Transform>()->setScale(sf::Vector2f(40.0f, 60.0f));
-
-    if (!texture.loadFromFile("KartMap.png")) {
-      notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
-      return -1;
-    }
-    Track->getComponent<ShapeFactory>()->getShape()->setTexture(&texture);
-    m_actors.push_back(Track);
-  }
-
+  
   return true;
 }
 
@@ -162,7 +162,7 @@ BaseApp::render() {
     }
   }
 
-  /*m_window->clear();
+  /*
   if (!Track.isNull()) {
     Track->render(*m_window);
   }
@@ -171,6 +171,7 @@ BaseApp::render() {
   }
   if (!Triangle.isNull()) {
     Triangle->render(*m_window);
+  }
   }*/
 
 
@@ -180,6 +181,9 @@ BaseApp::render() {
 
   // Configuramos la consola y le pasamos los mensajes
   m_GUI.console(notifier.getNotifications());
+
+  // Mostramos la jerarquía de actorees
+  m_GUI.hierarchy(m_actors);
 
   m_window->render();
   m_window->display();

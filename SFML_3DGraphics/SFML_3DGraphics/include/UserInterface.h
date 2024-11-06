@@ -62,6 +62,12 @@ public:
   void 
     hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>> actors);
 
-private:
+  /**
+   * @brief Muestra el isnepctor del actor seleccionado
+   */
+  void
+    inspector();
 
+private:
+  EngineUtilities::TSharedPointer<Actor> selectedActor;
 };
