@@ -5,24 +5,24 @@
 class window;
 
 class
-  Entity {
+Entity {
 public:
   virtual
-    ~Entity() = default;
+  ~Entity() = default;
 
   /**
    * @brief Método virtual puro para actualizar la entidad.
    * @param deltaTime El tiempo transcurrido desde la última actualización.
    */
   virtual void
-    update(float deltaTime) = 0;
+  update(float deltaTime) = 0;
 
   /**
    * @brief Método virtual puro para renderizar la entidad.
    * @param Window Contexto del dispositivo para operaciones gráficas.
    */
   virtual void
-    render(Window& window) = 0;
+  render(Window& window) = 0;
 
   /**
    * @brief Agrega un componente a la entidad.

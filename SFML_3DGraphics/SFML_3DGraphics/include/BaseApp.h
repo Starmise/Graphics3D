@@ -9,48 +9,76 @@
 class
   BaseApp {
 public:
+  /**
+   * @brief Constructor por defecto
+   */
   BaseApp() = default;
+
+  /**
+   * @brief Destructor de la clase BaseApp
+   */
   ~BaseApp();
 
-  //Función encargada de correr la aplicación en main
+  /**
+   * @brief Función encargada de correr la aplicación en el main
+   * @return Código de salida de la aplicación
+   */
   int
-    run();
+  run();
 
-  //Función de inicialización
+  /**
+   * @brief Función de inicialización de la aplicación, configura los recursos necesarios
+   * @return Verdadero si la inicialización fue exitosa, falso si hubo un error
+   */
   bool
-    initialize();
+  initialize();
 
-  //Función que se actualiza por frame 
+  /**
+   * @brief Función que se actualiza por cada frame, procesando la lógica del juego
+   */
   void
-    update();
+  update();
 
-  //Función de renderizado
+  /**
+   * @brief Función de renderizado, dibuja los elementos en la ventana
+   */
   void
-    render();
+  render();
 
+  /**
+   * @brief Limpia los recursos y elementos de la aplicación antes de salir
+   */
   void
-    cleanup();
+  cleanup();
 
+  /**
+   * @brief Actualiza el movimiento de los actores (por ejemplo, el círculo)
+   * @param deltaTime El tiempo transcurrido entre un frame y el siguiente
+   * @param circle Puntero compartido al actor que representa el círculo
+   */
   void
-    updateMovement(float deltaTime, EngineUtilities::TSharedPointer<Actor> circle);
+  updateMovement(float deltaTime, EngineUtilities::TSharedPointer<Actor> circle);
 
 private:
   sf::Clock clock;
   sf::Time deltaTime;
 
-  Window* m_window;
+  Window* m_window; // Puntero a la ventana donde se dibujan los elementos
   EngineUtilities::TSharedPointer<Actor> Triangle;
   EngineUtilities::TSharedPointer<Actor> Circle;
   EngineUtilities::TSharedPointer<Actor> Track;
 
+  // Lista de actores en la escena
   std::vector< EngineUtilities::TSharedPointer<Actor>> m_actors;
 
   //Array para la actividad de los 4 puntos
   sf::Vector2f points[9];
   int m_currentPoint = 0;
 
+  // Texturas para los elementos en escena
   sf::Texture texture;
   sf::Texture Rob;
 
+  // Interfaz gráfica de usuario
   UserInterface m_GUI;
 };

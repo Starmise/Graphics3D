@@ -5,7 +5,7 @@ class Window;
 * @brief Tipos de componentes disponibles en el juego
 */
 enum
-  ComponentType {
+ComponentType {
   NONE = 0,
   TRANSFORM = 1,
   SPRITE = 2,
@@ -23,34 +23,35 @@ enum
 * permitiendo actualizar y renderizar el componente, asi como obtener su tipo.
 */
 class
-  Component {
+Component {
 public:
   Component() = default;
 
   Component(const ComponentType type) : m_type(type) {}
 
   virtual
-    ~Component() = default;
+  ~Component() = default;
 
   /*
   * @brief Método virtual puro para actualizar el componente
   * @param deltaTime Tiempo transcurrido desde la última actualización
   */
   virtual void
-    update(float deltaTime) = 0;
+  update(float deltaTime) = 0;
 
   /*
   * @brief Método virtual puro para renderizar el componente
   * @param Window Contexto del dispositivo para operaciones gráficas
   */
   virtual void
-    render(Window window) = 0;
+  render(Window window) = 0;
 
   /*
   * @brief Obtiene el tipo de componente
   * @return El tipo del componente
   */
-  ComponentType getType()
+  ComponentType 
+  getType()
     const {
     return m_type;
   }

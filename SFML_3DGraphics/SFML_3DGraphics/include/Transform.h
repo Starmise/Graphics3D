@@ -3,7 +3,8 @@
 #include "Component.h"
 #include "Window.h"
 
-class Transform : public Component {
+class
+Transform : public Component {
 public:
   /**
    * @brief Constructor que inicializa posición, rotación y escala por defecto.
@@ -17,28 +18,28 @@ public:
    * @brief Destructor por defecto.
    */
   virtual
-    ~Transform() = default;
+  ~Transform() = default;
 
   /**
    * @brief Actualiza al objeto Transform conforme al tiempo que haya pasado.
    * @param deltaTime Tiempo transcurrido desde la última actualización.
    */
   void
-    update(float deltaTime) override {}
+  update(float deltaTime) override {}
 
   /**
    * @brief Renderiza el objeto Transform.
    * @param window Ventana donde se renderizará el objeto.
    */
   void
-    render(Window window) override {}
+  render(Window window) override {}
 
   /**
    * @brief Establece la posición del objeto.
    * @param _position Vector que contiene la nueva posición.
    */
   void
-    setPosition(const sf::Vector2f& _position) {
+  setPosition(const sf::Vector2f& _position) {
     position = _position;
   }
 
@@ -47,7 +48,7 @@ public:
    * @param _rotation Vector que contiene la nueva rotación.
    */
   void
-    setRotation(const sf::Vector2f& _rotation) {
+  setRotation(const sf::Vector2f& _rotation) {
     rotation = _rotation;
   }
 
@@ -56,7 +57,7 @@ public:
   * @param _scale Vector que contiene la nueva escala.
   */
   void
-    setScale(const sf::Vector2f& _scale) {
+  setScale(const sf::Vector2f& _scale) {
     scale = _scale;
   }
 
@@ -64,7 +65,7 @@ public:
    * @brief Obtiene la posición del objeto.
    */
   sf::Vector2f&
-    getPosition() {
+  getPosition() {
     return position;
   }
 
@@ -72,7 +73,7 @@ public:
    * @brief Obtiene la rotación del objeto.
    */
   sf::Vector2f&
-    getRotation() {
+  getRotation() {
     return rotation;
   }
 
@@ -80,12 +81,15 @@ public:
    * @brief Obtiene la escala del objeto.
    */
   sf::Vector2f&
-    getScale() {
+  getScale() {
     return scale;
   }
 
+  /**
+   * @brief Método que usa punta menos cola para seguir al cursor
+   */
   void
-    Seek(const sf::Vector2f& targetPosition,
+  Seek(const sf::Vector2f& targetPosition,
       float speed,
       float deltaTime,
       float range) {
@@ -102,7 +106,7 @@ public:
    * @brief Libera recursos y destruye al Transform.
    */
   void
-    destroy();
+  destroy();
 
 private:
   sf::Vector2f position; // Posición del objeto

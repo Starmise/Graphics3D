@@ -40,7 +40,7 @@ bool
 BaseApp::initialize() {
   NotificationService& notifier = NotificationService::getInstance();
 
-  m_window = new Window(1280, 720, "Starmise Engine");
+  m_window = new Window(1360, 765, "Starmise Engine");
   if (!m_window) {
     notifier.addMessage(ConsolErrorType::ERROR, "Error on window creation, pointer is null");
     ERROR("BaseApp", "initialize", "Error on window creation, var is null");

@@ -2,7 +2,8 @@
 #include "Prerequisites.h"
 #include "Component.h"
 
-class Texture : public Component {
+class 
+Texture : public Component {
 public:
   /**
    * @brief Constructor por defecto de Texture.
@@ -33,7 +34,7 @@ public:
    * @brief Destructor por defecto de Texture.
    */
   virtual
-    ~Texture() = default;
+  ~Texture() = default;
 
 private:
   std::string m_textureName; // Nombre del archivo de la textura
