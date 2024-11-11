@@ -67,9 +67,6 @@ BaseApp::initialize() {
   // Track Actor
   Track = EngineUtilities::MakeShared<Actor>("Track");
   if (!Track.isNull()) {
-    notifier.addMessage(ConsolErrorType::ERROR, "Error - Nullpointer Reference");
-    notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
-
     Track->getComponent<ShapeFactory>()->createShape(ShapeType::RECTANGLE);
 
     // Establecer posición, rotación y escala desde Transform
@@ -84,9 +81,13 @@ BaseApp::initialize() {
     Track->getComponent<ShapeFactory>()->getShape()->setTexture(&texture);
     m_actors.push_back(Track);
   }
+  else {
+    notifier.addMessage(ConsolErrorType::ERROR, "Error - Nullpointer Reference");
+    notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
+  }
 
   //Circle Actor
-  Circle = EngineUtilities::MakeShared<Actor>("Circle");
+  Circle = EngineUtilities::MakeShared<Actor>("Player");
   if (!Circle.isNull()) {
     Circle->getComponent<ShapeFactory>()->createShape(ShapeType::CIRCLE);
 
@@ -130,7 +131,7 @@ BaseApp::update() {
   for (auto& actor : m_actors) {
     if (!actor.isNull()) {
       actor->update(m_window->deltaTime.asSeconds());
-      if (actor->getName() == "Circle") {
+      if (actor->getName() == "Player") {
         updateMovement(m_window->deltaTime.asSeconds(), actor);
       }
     }

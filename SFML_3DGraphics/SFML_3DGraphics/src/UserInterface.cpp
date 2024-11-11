@@ -109,39 +109,71 @@ UserInterface::console(std::map<ConsolErrorType, std::string> programMessages) {
 }
 
 void
-UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>> actors) {
+UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>>& actors) {
+  NotificationService& notifier = NotificationService::getInstance();
+
   ImGui::Begin("Hierarchy");
 
-  for (auto& actor : actors) {
+  for (int i = 0; i < actors.size(); ++i) {
+    auto& actor = actors[i];
     if (actor.isNull()) continue;
 
-    // Muestra el nombre del actor y permite seleccionarlo
-    if (ImGui::Selectable(actor->getName().c_str(), selectedActor == actor)) {
-      selectedActor = actor; // Al hacer clic, se selecciona el actor para el inspector
+    ImGui::PushID(i);
+    std::string displayName = std::to_string(i) + " - " + actor->getName();
+    if (ImGui::Selectable(displayName.c_str(), selectedActor == actor)) {
+      selectedActor = actor;
     }
+    ImGui::PopID(); 
   }
 
   ImGui::Separator();
   ImGui::Spacing();
 
-  // Botón 1
   if (ImGui::Button("Create Circle")) {
-    // Lógica a implementar si el botón 1 es seleccionado
+    auto circleAct = EngineUtilities::MakeShared<Actor>("Circle");
+    if (!circleAct.isNull()) {
+      circleAct->getComponent<ShapeFactory>()->createShape(ShapeType::CIRCLE);
+
+      circleAct->getComponent<Transform>()->setPosition(sf::Vector2(100.0f, 100.0f));
+      circleAct->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
+      circleAct->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+
+      actors.push_back(circleAct);
+
+      notifier.addMessage(ConsolErrorType::NORMAL, "Actor '" + circleAct->getName() + "' created successfully.");
+    }
   }
 
-  // Botón 2
   if (ImGui::Button("Create Rectangle")) {
-    // Lógica a implementar si el botón 2 es seleccionado
+    auto ractangleAct = EngineUtilities::MakeShared<Actor>("Rectangle");
+    if (!ractangleAct.isNull()) {
+      ractangleAct->getComponent<ShapeFactory>()->createShape(ShapeType::RECTANGLE);
+
+      ractangleAct->getComponent<Transform>()->setPosition(sf::Vector2(150.0f, 200.0f));
+      ractangleAct->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
+      ractangleAct->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+      actors.push_back(ractangleAct);
+
+      notifier.addMessage(ConsolErrorType::NORMAL, "Actor '" + ractangleAct->getName() + "' created successfully.");
+    }
   }
 
-  // Botón 3
   if (ImGui::Button("Create Triangle")) {
-    // Lógica a implementar si el botón 3 es seleccionado
+    auto triangleAct = EngineUtilities::MakeShared<Actor>("Triangle");
+    if (!triangleAct.isNull()) {
+      triangleAct->getComponent<ShapeFactory>()->createShape(ShapeType::TRIANGLE);
+
+      triangleAct->getComponent<Transform>()->setPosition(sf::Vector2(200.0f, 100.0f));
+      triangleAct->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
+      triangleAct->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+      actors.push_back(triangleAct);
+
+      notifier.addMessage(ConsolErrorType::NORMAL, "Actor '" + triangleAct->getName() + "' created successfully.");
+    }
   }
 
   ImGui::End();
 
-  // Llama al inspector para mostrar las propiedades del actor seleccionado
   inspector();
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Prerequisites.h"
 #include "Actor.h"
+#include "Services/NotificationService.h"
 
 class Window;
 
@@ -60,7 +61,7 @@ public:
    * @param actors Vector de actores para almacenar la jerarquía de actores en la escena
    */
   void 
-    hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>> actors);
+    hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>>& actors);
 
   /**
    * @brief Muestra el isnepctor del actor seleccionado
