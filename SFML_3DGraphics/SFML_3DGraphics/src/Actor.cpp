@@ -44,3 +44,8 @@ std::string
 Actor::getName() const {
   return m_name;
 }
+
+void
+Actor::setName(const std::string& newName) {
+  m_name = newName;
+}

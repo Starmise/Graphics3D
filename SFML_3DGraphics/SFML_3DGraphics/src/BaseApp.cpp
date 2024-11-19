@@ -38,7 +38,9 @@ BaseApp::run() {
  */
 bool
 BaseApp::initialize() {
+  // Obtener el ResourceManager y el Notifier
   NotificationService& notifier = NotificationService::getInstance();
+  ResourceManager& resourceManager = ResourceManager::getInstance();
 
   m_window = new Window(1360, 765, "Starmise Engine");
   if (!m_window) {
@@ -74,11 +76,16 @@ BaseApp::initialize() {
     Track->getComponent<Transform>()->setRotation(sf::Vector2f(0.0f, 0.0f));
     Track->getComponent<Transform>()->setScale(sf::Vector2f(40.0f, 60.0f));
 
-    if (!texture.loadFromFile("KartMap.png")) {
-      notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
-      return -1;
+    // Cargar la textura de Track
+    if (!resourceManager.loadTexture("KartMap", "png")) {
+      notifier.addMessage(ConsolErrorType::ERROR, "Can't load texture: Circuit");
     }
-    Track->getComponent<ShapeFactory>()->getShape()->setTexture(&texture);
+
+    EngineUtilities::TSharedPointer<Texture> trackTexture = resourceManager.getTexture("KartMap");
+    if (trackTexture) {
+      Track->getComponent<ShapeFactory>()->getShape()->setTexture(&trackTexture->getTexture());
+    }
+
     m_actors.push_back(Track);
   }
   else {
@@ -95,12 +102,21 @@ BaseApp::initialize() {
     Circle->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
     Circle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
 
-    if (!Rob.loadFromFile("tile011.png")) {
-      notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
-      return -1;
+    // Cargar la textura de Track
+    if (!resourceManager.loadTexture("tile011", "png")) {
+      notifier.addMessage(ConsolErrorType::ERROR, "Can't load texture: Rob");
     }
-    Circle->getComponent<ShapeFactory>()->getShape()->setTexture(&Rob);
+
+    EngineUtilities::TSharedPointer<Texture> trackTexture = resourceManager.getTexture("tile011");
+    if (trackTexture) {
+      Circle->getComponent<ShapeFactory>()->getShape()->setTexture(&trackTexture->getTexture());
+    }
+
     m_actors.push_back(Circle);
+  }
+  else {
+    notifier.addMessage(ConsolErrorType::ERROR, "Error - Nullpointer Reference");
+    notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
   }
 
   // Triangle Actor
@@ -110,7 +126,22 @@ BaseApp::initialize() {
     Triangle->getComponent<Transform>()->setPosition(sf::Vector2(150.0f, 200.0f));
     Triangle->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
     Triangle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+
+    // Cargar la textura de Track
+    if (!resourceManager.loadTexture("Koromaru", "png")) {
+      notifier.addMessage(ConsolErrorType::ERROR, "Can't load texture: Koromaru");
+    }
+
+    EngineUtilities::TSharedPointer<Texture> trackTexture = resourceManager.getTexture("Koromaru");
+    if (trackTexture) {
+      Triangle->getComponent<ShapeFactory>()->getShape()->setTexture(&trackTexture->getTexture());
+    }
+
     m_actors.push_back(Triangle);
+  }
+  else {
+    notifier.addMessage(ConsolErrorType::ERROR, "Error - Nullpointer Reference");
+    notifier.addMessage(ConsolErrorType::WARNING, "Warning - Missing Texture from source bin");
   }
   
   return true;

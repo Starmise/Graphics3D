@@ -143,5 +143,8 @@
     <ClInclude Include="include\Services\NotificationService.h">
       <Filter>Archivos de encabezado\Services</Filter>
     </ClInclude>
+    <ClInclude Include="include\Services\ResourceManager.h">
+      <Filter>Archivos de encabezado\Services</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

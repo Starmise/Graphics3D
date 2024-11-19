@@ -5,6 +5,7 @@
 #include "Actor.h"
 #include "UserInterface.h"
 #include "Services/NotificationService.h"
+#include "Services/ResourceManager.h"
 
 class
   BaseApp {

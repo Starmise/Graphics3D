@@ -40,6 +40,12 @@ public:
   std::string
   getName() const;
 
+  /**
+   * @brief Permite la modificación del nombre del actor
+   */
+  void
+    setName(const std::string& newName);
+
   /*
   * @brief Obtiene un componente específico del actor
   * @tparam T Tipo de componente que se va a obtener

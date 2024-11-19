@@ -183,22 +183,11 @@ UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>>& ac
    */
 void
 UserInterface::inspector() {
-  /*bool show_demo_window = true;
-  ImGui::Begin("Inspector");
-
-  bool isStatic = false;
-  ImGui::Checkbox("##Static", &isStatic);
-  ImGui::SameLine();
-
+  /*
   // Input para el nombre dle objeto
   char objectName[128] = "Cube";
   ImGui::InputText("##ObjectName", objectName, IM_ARRAYSIZE(objectName));
   ImGui::SameLine();
-
-  // Icono
-  if (ImGui::Button("Icon")) {
-    // Lógica del icono
-  }
 
   ImGui::Separator();
 
@@ -210,23 +199,29 @@ UserInterface::inspector() {
   // Dropdown para Layer
   const char* layers[] = { "Default", "TransparentFX", "Ignore Raycast", "Water", "UI"};
   static int currentLayer = 0;
-  ImGui::Combo("Layer", &currentLayer, layers, IM_ARRAYSIZE(layers));
-
-  ImGui::Separator();
-  float* m_position = new float[2];
-  float* m_rotation = new float[2];
-  float* m_scale = new float[2];
-  vec2Control("Position", actor->getComponent<Transform>()->getPosData());
-  vec2Control("Rotation", actor->getComponent<Transform>()->getRotData());
-  vec2Control("Scale", actor->getComponent<Transform>()->getSclData());
-
-  ImGui::End();*/
+  ImGui::Combo("Layer", &currentLayer, layers, IM_ARRAYSIZE(layers));*/
 
   if (selectedActor.isNull()) {
     return;
   }
 
   ImGui::Begin("Inspector");
+
+  // Muestra el nombre del actor
+  char objectName[128];
+  std::string name = selectedActor->getName();
+
+  // Asegúrate de no exceder el tamaño del array
+  if (name.size() < sizeof(objectName)) {
+    std::copy(name.begin(), name.end(), objectName);
+    objectName[name.size()] = '\0'; // Termina con null
+  }
+
+  // Campo para editar el nombre del objeto
+  if (ImGui::InputText("Name", objectName, sizeof(objectName))) {
+    // Si el usuario edita el nombre, actualiza el actor
+    selectedActor->setName(std::string(objectName));
+  }
 
   // Obtiene el componente Transform del actor
   auto transform = selectedActor->getComponent<Transform>();

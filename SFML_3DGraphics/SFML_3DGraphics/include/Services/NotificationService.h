@@ -88,6 +88,22 @@ public:
   }
 
 private:
+  /**
+   * @brief Obtiene un color para la notificación dependiendo del tipo de mensaje
+   */
+  ImVec4 getColorForSeverity(ConsolErrorType errorType) const {
+    switch (errorType) {
+    case ConsolErrorType::NORMAL:
+      return ImVec4(0.8f, 0.8f, 0.8f, 1.0f); // Gris claro
+    case ConsolErrorType::WARNING:
+      return ImVec4(1.0f, 1.0f, 0.0f, 1.0f); // Amarillo
+    case ConsolErrorType::ERROR:
+      return ImVec4(1.0f, 0.0f, 0.0f, 1.0f); // Rojo
+    default:
+      return ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // Blanco
+    }
+  }
+
   // Mapa para almacenar los mensajes del progeama
   std::map<ConsolErrorType, std::string> m_programMessages;
 };
