@@ -71,9 +71,10 @@ private:
   // Lista de actores en la escena
   std::vector< EngineUtilities::TSharedPointer<Actor>> m_actors;
 
-  //Array para la actividad de los 4 puntos
+  //Array para la actividad de los puntos
   sf::Vector2f points[9];
   int m_currentPoint = 0;
+  int m_currentActor = 0;
 
   // Texturas para los elementos en escena
   sf::Texture texture;

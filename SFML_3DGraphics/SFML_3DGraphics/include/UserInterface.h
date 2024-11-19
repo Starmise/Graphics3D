@@ -69,6 +69,12 @@ public:
   void
   inspector();
 
+  void
+  vec2Control(const std::string& label,
+      float* values,
+      float resetValues = 0.0f,
+      float columnWidth = 100.0f);
+
 private:
   EngineUtilities::TSharedPointer<Actor> selectedActor;
 };

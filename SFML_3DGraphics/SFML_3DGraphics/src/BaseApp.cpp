@@ -183,6 +183,8 @@ BaseApp::render() {
   // Configuramos la consola y le pasamos los mensajes
   m_GUI.console(notifier.getNotifications());
 
+  m_GUI.inspector();
+
   // Mostramos la jerarquía de actorees
   m_GUI.hierarchy(m_actors);
 

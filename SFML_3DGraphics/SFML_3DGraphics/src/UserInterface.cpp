@@ -1,5 +1,6 @@
 #include "UserInterface.h"
 #include "Window.h"
+#include "imgui_internal.h"
 
 /**
  * @brief Configura el estilo y la apariencia de la interfaz gráfica.
@@ -123,7 +124,7 @@ UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>>& ac
     if (ImGui::Selectable(displayName.c_str(), selectedActor == actor)) {
       selectedActor = actor;
     }
-    ImGui::PopID(); 
+    ImGui::PopID();
   }
 
   ImGui::Separator();
@@ -174,7 +175,7 @@ UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>>& ac
 
   ImGui::End();
 
-  inspector();
+  //inspector();
 }
 
 /**
@@ -182,6 +183,45 @@ UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>>& ac
    */
 void
 UserInterface::inspector() {
+  /*bool show_demo_window = true;
+  ImGui::Begin("Inspector");
+
+  bool isStatic = false;
+  ImGui::Checkbox("##Static", &isStatic);
+  ImGui::SameLine();
+
+  // Input para el nombre dle objeto
+  char objectName[128] = "Cube";
+  ImGui::InputText("##ObjectName", objectName, IM_ARRAYSIZE(objectName));
+  ImGui::SameLine();
+
+  // Icono
+  if (ImGui::Button("Icon")) {
+    // Lógica del icono
+  }
+
+  ImGui::Separator();
+
+  // Dropdown para Tag
+  const char* tags[] = { "Untagged", "Player", "Enemy", "Environment" };
+  static int currentTag = 0;
+  ImGui::Combo("Tag", &currentTag, tags, IM_ARRAYSIZE(tags));
+
+  // Dropdown para Layer
+  const char* layers[] = { "Default", "TransparentFX", "Ignore Raycast", "Water", "UI"};
+  static int currentLayer = 0;
+  ImGui::Combo("Layer", &currentLayer, layers, IM_ARRAYSIZE(layers));
+
+  ImGui::Separator();
+  float* m_position = new float[2];
+  float* m_rotation = new float[2];
+  float* m_scale = new float[2];
+  vec2Control("Position", actor->getComponent<Transform>()->getPosData());
+  vec2Control("Rotation", actor->getComponent<Transform>()->getRotData());
+  vec2Control("Scale", actor->getComponent<Transform>()->getSclData());
+
+  ImGui::End();*/
+
   if (selectedActor.isNull()) {
     return;
   }
@@ -191,7 +231,15 @@ UserInterface::inspector() {
   // Obtiene el componente Transform del actor
   auto transform = selectedActor->getComponent<Transform>();
   if (!transform.isNull()) {
-    sf::Vector2f position = transform->getPosition();
+
+    float* m_position = new float[2];
+    float* m_rotation = new float[2];
+    float* m_scale = new float[2];
+    vec2Control("Position", selectedActor->getComponent<Transform>()->getPosData());
+    vec2Control("Rotation", selectedActor->getComponent<Transform>()->getRotData());
+    vec2Control("Scale", selectedActor->getComponent<Transform>()->getSclData());
+
+    /*sf::Vector2f position = transform->getPosition();
     sf::Vector2f rotation = transform->getRotation();
     sf::Vector2f scale = transform->getScale();
 
@@ -208,8 +256,58 @@ UserInterface::inspector() {
     // Escala
     if (ImGui::DragFloat2("Scale", &scale.x, 0.1f)) {
       transform->setScale(scale);
-    }
+    }*/
   }
 
   ImGui::End();
+}
+
+void
+UserInterface::vec2Control(const std::string& label, float* values, float resetValue, float columnWidth) {
+  ImGuiIO& io = ImGui::GetIO();
+  auto boldFont = io.Fonts->Fonts[0];
+
+  ImGui::PushID(label.c_str());
+
+  ImGui::Columns(2);
+  ImGui::SetColumnWidth(0, columnWidth);
+  ImGui::Text(label.c_str());
+  ImGui::NextColumn();
+
+  ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
+  ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 0 });
+
+  float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+  ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+
+  ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+  ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
+  ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+  ImGui::PushFont(boldFont);
+  if (ImGui::Button("X", buttonSize)) values[0] = resetValue;
+  ImGui::PopFont();
+  ImGui::PopStyleColor(3);
+
+  ImGui::SameLine();
+  ImGui::DragFloat("##X", &values[0], 0.1f, 0.0f, 0.0f, "%.2f");
+  ImGui::PopItemWidth();
+  ImGui::SameLine();
+
+  ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+  ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.3f, 0.8f, 0.3f, 1.0f });
+  ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+  ImGui::PushFont(boldFont);
+  if (ImGui::Button("Y", buttonSize)) values[1] = resetValue;
+  ImGui::PopFont();
+  ImGui::PopStyleColor(3);
+
+  ImGui::SameLine();
+  ImGui::DragFloat("##Y", &values[1], 0.1f, 0.0f, 0.0f, "%.2f");
+  ImGui::PopItemWidth();
+  ImGui::SameLine();
+
+  ImGui::PopStyleVar();
+  ImGui::Columns(1);
+
+  ImGui::PopID();
 }

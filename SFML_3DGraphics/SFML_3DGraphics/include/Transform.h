@@ -69,6 +69,11 @@ public:
     return position;
   }
 
+  float*
+  getPosData() {
+    return &position.x;
+  }
+
   /**
    * @brief Obtiene la rotación del objeto.
    */
@@ -77,12 +82,22 @@ public:
     return rotation;
   }
 
+  float*
+  getRotData() {
+    return &rotation.x;
+  }
+
   /**
    * @brief Obtiene la escala del objeto.
    */
   sf::Vector2f&
   getScale() {
     return scale;
+  }
+
+  float*
+    getSclData() {
+    return &scale.x;
   }
 
   /**
