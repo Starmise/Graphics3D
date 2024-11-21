@@ -100,6 +100,14 @@ public:
     return &scale.x;
   }
 
+  void 
+    setTransform(const sf::Vector2f& pos, const sf::Vector2f& rot, const sf::Vector2f& scl) {
+    position = pos;
+    rotation = rot;
+    scale = scl;
+  }
+
+
   /**
    * @brief Método que usa punta menos cola para seguir al cursor
    */

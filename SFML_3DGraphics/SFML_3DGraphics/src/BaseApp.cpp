@@ -123,9 +123,8 @@ BaseApp::initialize() {
   Triangle = EngineUtilities::MakeShared<Actor>("Triangle");
   if (!Triangle.isNull()) {
     Triangle->getComponent<ShapeFactory>()->createShape(ShapeType::TRIANGLE);
-    Triangle->getComponent<Transform>()->setPosition(sf::Vector2(150.0f, 200.0f));
-    Triangle->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
-    Triangle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+    Triangle->getComponent<Transform>()->setTransform(sf::Vector2(150.0f, 200.0f), 
+      sf::Vector2(0.0f, 0.0f), sf::Vector2(1.0f, 1.0f));
 
     // Cargar la textura de Track
     if (!resourceManager.loadTexture("Koromaru", "png")) {
@@ -154,11 +153,6 @@ void
 BaseApp::update() {
   m_window->update();
 
-  // Mouse Position
-  sf::Vector2i mousePosition = sf::Mouse::getPosition(*m_window->getWindow());
-  sf::Vector2f mousePosF(static_cast<float>(mousePosition.x),
-    static_cast<float>(mousePosition.y));
-
   for (auto& actor : m_actors) {
     if (!actor.isNull()) {
       actor->update(m_window->deltaTime.asSeconds());
@@ -167,17 +161,6 @@ BaseApp::update() {
       }
     }
   }
-
-  /*if (!triangle.isnull()) {
-    triangle->update(m_window->deltatime.asseconds());
-  }
-  if (!circle.isnull()) {
-    circle->update(m_window->deltatime.asseconds());
-    updatemovement(m_window->deltatime.asseconds(), circle);
-  }
-  if (!track.isnull()) {
-    track->update(m_window->deltatime.asseconds());
-  }*/
 }
 
 /**
@@ -193,19 +176,6 @@ BaseApp::render() {
       actor->render(*m_window);
     }
   }
-
-  /*
-  if (!Track.isNull()) {
-    Track->render(*m_window);
-  }
-  if (!Circle.isNull()) {
-    Circle->render(*m_window);
-  }
-  if (!Triangle.isNull()) {
-    Triangle->render(*m_window);
-  }
-  }*/
-
 
   // Mostrar el render en ImGui
   m_window->renderToTexture();  // Finaliza el render a la textura
