@@ -135,9 +135,8 @@ UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>>& ac
     if (!circleAct.isNull()) {
       circleAct->getComponent<ShapeFactory>()->createShape(ShapeType::CIRCLE);
 
-      circleAct->getComponent<Transform>()->setPosition(sf::Vector2(100.0f, 100.0f));
-      circleAct->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
-      circleAct->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+      circleAct->getComponent<Transform>()->setTransform(Vector2(100.0f, 100.0f),
+        Vector2(0.0f, 0.0f), Vector2(1.0f, 1.0f));
 
       actors.push_back(circleAct);
 
@@ -150,9 +149,8 @@ UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>>& ac
     if (!ractangleAct.isNull()) {
       ractangleAct->getComponent<ShapeFactory>()->createShape(ShapeType::RECTANGLE);
 
-      ractangleAct->getComponent<Transform>()->setPosition(sf::Vector2(150.0f, 200.0f));
-      ractangleAct->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
-      ractangleAct->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+      ractangleAct->getComponent<Transform>()->setTransform(Vector2(200.0f, 150.0f),
+        Vector2(0.0f, 0.0f), Vector2(1.0f, 1.0f));
       actors.push_back(ractangleAct);
 
       notifier.addMessage(ConsolErrorType::NORMAL, "Actor '" + ractangleAct->getName() + "' created successfully.");
@@ -164,9 +162,8 @@ UserInterface::hierarchy(std::vector<EngineUtilities::TSharedPointer<Actor>>& ac
     if (!triangleAct.isNull()) {
       triangleAct->getComponent<ShapeFactory>()->createShape(ShapeType::TRIANGLE);
 
-      triangleAct->getComponent<Transform>()->setPosition(sf::Vector2(200.0f, 100.0f));
-      triangleAct->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
-      triangleAct->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+      triangleAct->getComponent<Transform>()->setTransform(Vector2(150.0f, 200.0f),
+        Vector2(0.0f, 0.0f), Vector2(1.0f, 1.0f));
       actors.push_back(triangleAct);
 
       notifier.addMessage(ConsolErrorType::NORMAL, "Actor '" + triangleAct->getName() + "' created successfully.");

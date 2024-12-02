@@ -73,7 +73,7 @@ private:
   std::vector< EngineUtilities::TSharedPointer<Actor>> m_actors;
 
   //Array para la actividad de los puntos
-  sf::Vector2f points[9];
+  Vector2 points[9];
   int m_currentPoint = 0;
   int m_currentActor = 0;
 

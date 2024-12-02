@@ -50,15 +50,15 @@ BaseApp::initialize() {
   }
 
   // Al iniciar el programa, establecer los 4 puntos de destino
-  points[0] = sf::Vector2f(25.0f, 560.0f);
-  points[1] = sf::Vector2f(25.0f, 20.0f);
-  points[2] = sf::Vector2f(700.0f, 20.0f);
-  points[3] = sf::Vector2f(700.0f, 200.0f);
-  points[4] = sf::Vector2f(500.0f, 200.0f);
-  points[5] = sf::Vector2f(500.0f, 120.0f);
-  points[6] = sf::Vector2f(350.0f, 120.0f);
-  points[7] = sf::Vector2f(350.0f, 340.0f);
-  points[8] = sf::Vector2f(700.0f, 340.0f);
+  points[0] = Vector2(25.0f, 560.0f);
+  points[1] = Vector2(25.0f, 20.0f);
+  points[2] = Vector2(700.0f, 20.0f);
+  points[3] = Vector2(700.0f, 200.0f);
+  points[4] = Vector2(500.0f, 200.0f);
+  points[5] = Vector2(500.0f, 120.0f);
+  points[6] = Vector2(350.0f, 120.0f);
+  points[7] = Vector2(350.0f, 340.0f);
+  points[8] = Vector2(700.0f, 340.0f);
   /*shape = new sf::CircleShape(10.0f);
 
   if (!shape) {
@@ -72,9 +72,8 @@ BaseApp::initialize() {
     Track->getComponent<ShapeFactory>()->createShape(ShapeType::RECTANGLE);
 
     // Establecer posición, rotación y escala desde Transform
-    Track->getComponent<Transform>()->setPosition(sf::Vector2f(0.0f, 0.0f));
-    Track->getComponent<Transform>()->setRotation(sf::Vector2f(0.0f, 0.0f));
-    Track->getComponent<Transform>()->setScale(sf::Vector2f(40.0f, 60.0f));
+    Track->getComponent<Transform>()->setTransform(Vector2(0.0f, 0.0f),
+      Vector2(0.0f, 0.0f), Vector2(40.0f, 60.0f));
 
     // Cargar la textura de Track
     if (!resourceManager.loadTexture("KartMap", "png")) {
@@ -98,9 +97,8 @@ BaseApp::initialize() {
   if (!Circle.isNull()) {
     Circle->getComponent<ShapeFactory>()->createShape(ShapeType::CIRCLE);
 
-    Circle->getComponent<Transform>()->setPosition(sf::Vector2(650.0f, 560.0f));
-    Circle->getComponent<Transform>()->setRotation(sf::Vector2(0.0f, 0.0f));
-    Circle->getComponent<Transform>()->setScale(sf::Vector2(1.0f, 1.0f));
+    Circle->getComponent<Transform>()->setTransform(Vector2(650.0f, 560.0f),
+      Vector2(0.0f, 0.0f), Vector2(1.0f, 1.0f));
 
     // Cargar la textura de Track
     if (!resourceManager.loadTexture("tile011", "png")) {
@@ -123,8 +121,8 @@ BaseApp::initialize() {
   Triangle = EngineUtilities::MakeShared<Actor>("Triangle");
   if (!Triangle.isNull()) {
     Triangle->getComponent<ShapeFactory>()->createShape(ShapeType::TRIANGLE);
-    Triangle->getComponent<Transform>()->setTransform(sf::Vector2(150.0f, 200.0f), 
-      sf::Vector2(0.0f, 0.0f), sf::Vector2(1.0f, 1.0f));
+    Triangle->getComponent<Transform>()->setTransform(Vector2(150.0f, 200.0f),
+      Vector2(0.0f, 0.0f), Vector2(1.0f, 1.0f));
 
     // Cargar la textura de Track
     if (!resourceManager.loadTexture("Koromaru", "png")) {
@@ -217,13 +215,13 @@ BaseApp::updateMovement(float deltaTime, EngineUtilities::TSharedPointer<Actor> 
   if (transform.isNull()) return;
 
   // Posición actual del destino (punto de recorrido)
-  sf::Vector2f targetPos = points[m_currentPoint];
+  Vector2 targetPos = points[m_currentPoint];
 
   // Llamar al Seek del Transform
   transform->Seek(targetPos, 200.0f, deltaTime, 10.0f);
 
   // Obtener la posición actual del actor desde Transform
-  sf::Vector2f currentPos = transform->getPosition();
+  Vector2 currentPos = transform->getPosition();
 
   // Comprobar si el actor ha alcanzado el destino (o está cerca)
   float distanceToTarget = std::sqrt(std::pow(targetPos.x - currentPos.x, 2) + std::pow(targetPos.y - currentPos.y, 2));

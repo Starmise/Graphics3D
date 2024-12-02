@@ -16,6 +16,10 @@
 #include "Memory/TStaticPtr.h"
 #include "Memory/TUniquePtr.h"
 #include "Memory/TWeakPointer.h"
+#include "Vectors/Vector2.h"
+#include "Vectors/Vector3.h"
+#include "Vectors/Vector4.h"
+#include "Vectors/Quaternion.h"
 
 // Imgui
 #include <imgui.h>

@@ -43,7 +43,7 @@ public:
    * @brief Obtiene la posición del componente
    */
   void
-  setPosition(const sf::Vector2f& position);
+  setPosition(const Vector2& position);
 
   /**
    * @brief Colorea al componente con algún color
@@ -64,7 +64,7 @@ public:
    * @param scl escala del componente
    */
   void
-  setScale(const sf::Vector2f& scl);
+  setScale(const Vector2& scl);
 
   /**
    * @brief Obtiene la figura que fue creada

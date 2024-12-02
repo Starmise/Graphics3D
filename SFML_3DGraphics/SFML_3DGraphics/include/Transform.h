@@ -39,7 +39,7 @@ public:
    * @param _position Vector que contiene la nueva posición.
    */
   void
-  setPosition(const sf::Vector2f& _position) {
+  setPosition(const Vector2& _position) {
     position = _position;
   }
 
@@ -48,7 +48,7 @@ public:
    * @param _rotation Vector que contiene la nueva rotación.
    */
   void
-  setRotation(const sf::Vector2f& _rotation) {
+  setRotation(const Vector2& _rotation) {
     rotation = _rotation;
   }
 
@@ -57,14 +57,14 @@ public:
   * @param _scale Vector que contiene la nueva escala.
   */
   void
-  setScale(const sf::Vector2f& _scale) {
+  setScale(const Vector2& _scale) {
     scale = _scale;
   }
 
   /**
    * @brief Obtiene la posición del objeto.
    */
-  sf::Vector2f&
+  Vector2
   getPosition() {
     return position;
   }
@@ -77,7 +77,7 @@ public:
   /**
    * @brief Obtiene la rotación del objeto.
    */
-  sf::Vector2f&
+  Vector2
   getRotation() {
     return rotation;
   }
@@ -90,7 +90,7 @@ public:
   /**
    * @brief Obtiene la escala del objeto.
    */
-  sf::Vector2f&
+  Vector2
   getScale() {
     return scale;
   }
@@ -101,7 +101,7 @@ public:
   }
 
   void 
-    setTransform(const sf::Vector2f& pos, const sf::Vector2f& rot, const sf::Vector2f& scl) {
+    setTransform(const Vector2& pos, const Vector2& rot, const Vector2& scl) {
     position = pos;
     rotation = rot;
     scale = scl;
@@ -112,11 +112,11 @@ public:
    * @brief Método que usa punta menos cola para seguir al cursor
    */
   void
-  Seek(const sf::Vector2f& targetPosition,
+  Seek(const Vector2& targetPosition,
       float speed,
       float deltaTime,
       float range) {
-    sf::Vector2f direction = targetPosition - position;
+    Vector2 direction = (targetPosition) - position;
     float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
 
     if (length > range) {
@@ -132,7 +132,7 @@ public:
   destroy();
 
 private:
-  sf::Vector2f position; // Posición del objeto
-  sf::Vector2f rotation; // Rotacioón del objeto
-  sf::Vector2f scale;	// Escala del objeto
+  Vector2 position; // Posición del objeto
+  Vector2 rotation; // Rotación del objeto
+  Vector2 scale;	// Escala del objeto
 };

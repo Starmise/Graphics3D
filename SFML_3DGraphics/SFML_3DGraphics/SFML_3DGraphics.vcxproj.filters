@@ -28,6 +28,9 @@
     <Filter Include="Archivos de encabezado\Services">
       <UniqueIdentifier>{805874ba-1812-4e6a-ab38-14dd9812a0f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Vectors">
+      <UniqueIdentifier>{b48c36c1-4c60-44b7-9dba-26994746c941}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -145,6 +148,21 @@
     </ClInclude>
     <ClInclude Include="include\Services\ResourceManager.h">
       <Filter>Archivos de encabezado\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vectors\Quaternion.h">
+      <Filter>Archivos de encabezado\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vectors\Vector2.h">
+      <Filter>Archivos de encabezado\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vectors\Vector3.h">
+      <Filter>Archivos de encabezado\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vectors\Vector4.h">
+      <Filter>Archivos de encabezado\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MathUtilities.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

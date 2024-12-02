@@ -46,9 +46,9 @@ ShapeFactory::setPosition(float x, float y) {
  * @param position Vector que contiene la nueva posición de la figura
  */
 void
-ShapeFactory::setPosition(const sf::Vector2f& position) {
+ShapeFactory::setPosition(const Vector2& position) {
   if (m_shape) {
-    m_shape->setPosition(position);
+    m_shape->setPosition(position.x, position.y);
   }
 }
 
@@ -68,9 +68,9 @@ ShapeFactory::setRotation(float angle) {
  * @param scl Vector que contiene la escala en los ejes X e Y
  */
 void
-ShapeFactory::setScale(const sf::Vector2f& scl) {
+ShapeFactory::setScale(const Vector2& scl) {
   if (m_shape) {
-    m_shape->setScale(scl);
+    m_shape->setScale(scl.x, scl.y);
   }
 }
 
@@ -82,22 +82,3 @@ void
 ShapeFactory::setFillColor(const sf::Color& color) {
   m_shape->setFillColor(color);
 }
-
-//void
-//ShapeFactory::Seek(const sf::Vector2f& targetPosition,
-//  float speed, float deltaTime, float range) {
-//  // Obtener posición actual de mi shape
-//  sf::Vector2f shapePosition = m_shape->getPosition();
-//
-//  // Calcular la dirección desde el circulo hacia el objetivo 
-//  sf::Vector2f direction = targetPosition - shapePosition;
-//
-//  // Calcular la distancia al objetivo 
-//  float lenght = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-//
-//  // Si la distancia es mayor que el rango, mover shape hacia el objetivo
-//  if (lenght > range) {
-//    direction /= lenght;
-//    m_shape->move(direction * speed * deltaTime);
-//  }
-//}

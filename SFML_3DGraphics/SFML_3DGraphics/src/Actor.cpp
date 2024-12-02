@@ -21,9 +21,11 @@ Actor::update(float deltaTime) {
   auto shape = getComponent<ShapeFactory>();
 
   if (transform && shape) {
-    shape->setPosition(transform->getPosition());
+    Vector2 position(transform->getPosition().x, transform->getPosition().y);
+    shape->setPosition(position);
     shape->setRotation(transform->getRotation().x);
-    shape->setScale(transform->getScale());
+    Vector2 scale(transform->getScale().x, transform->getScale().y);
+    shape->setScale(scale);
   }
 }
 
