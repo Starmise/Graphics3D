@@ -9,8 +9,14 @@ class
 public:
   Actor() = default;
 
+  /*
+  * @brief Constructor con parámetro del nombre del actor
+  */
   Actor(std::string actorName);
 
+  /*
+  * @brief Destructor virtual por defecto
+  */
   virtual
     ~Actor() = default;
 

@@ -6,14 +6,27 @@
 class
 ShapeFactory : public Component {
 public:
+  /**
+   * @brief Constructor por defecto de ShapeFactory.
+   */
   ShapeFactory() = default;
 
+  /**
+   * @brief Destructor virtual por defecto
+   */
   virtual
   ~ShapeFactory() = default;
 
+  /**
+   * @brief Constructor que inicializa ShapeFactory con su correspondiente tipo de figura.
+   * @param shapeType Tipo de figura que se va a manejar.
+   */
   ShapeFactory(ShapeType shapeType) :
   m_shape(nullptr), m_ShapeType(ShapeType::EMPTY), Component(ComponentType::SHAPE) {}
 
+  /**
+   * @brief Crea una figura según el tipo especificado.
+   */
   sf::Shape*
   createShape(ShapeType shapeType);
 

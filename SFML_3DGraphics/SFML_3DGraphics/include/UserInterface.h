@@ -69,6 +69,13 @@ public:
   void
   inspector();
 
+  /**
+   *@brief Permite manipular dos valores flotantes en la interfaz gráfica.
+   * @param label Etiqueta que se mostrará junto al control
+   * @param values Puntero a los dos valores flotantes(X, Y) que se manipularán
+   * @param resetValues Valor predeterminado para restablecer los valores(por defecto es 0.0f)
+   * @param columnWidth Ancho de la columna para organizar los elementos de la interfaz(por defecto es 100.0f)
+   */
   void
   vec2Control(const std::string& label,
       float* values,

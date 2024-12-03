@@ -1,6 +1,6 @@
 #pragma once
 
-//Librerías STD
+// Librerías STD
 #include <iostream> 
 #include <string> 
 #include <sstream> 
@@ -16,6 +16,8 @@
 #include "Memory/TStaticPtr.h"
 #include "Memory/TUniquePtr.h"
 #include "Memory/TWeakPointer.h"
+
+// Librería Matemática
 #include "Vectors/Vector2.h"
 #include "Vectors/Vector3.h"
 #include "Vectors/Vector4.h"
@@ -25,7 +27,7 @@
 #include <imgui.h>
 #include <imgui-SFML.h>
 
-//Enums
+// Enums
 enum
   ShapeType {
   EMPTY = 0,

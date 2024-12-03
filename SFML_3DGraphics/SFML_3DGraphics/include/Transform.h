@@ -69,6 +69,9 @@ public:
     return position;
   }
 
+  /**
+   * @brief Devuelve una referencia a los datos de la posición del objeto
+   */
   float*
   getPosData() {
     return &position.x;
@@ -82,6 +85,9 @@ public:
     return rotation;
   }
 
+  /**
+   * @brief Devuelve una referencia a los datos de la rotación del objeto
+   */
   float*
   getRotData() {
     return &rotation.x;
@@ -95,11 +101,17 @@ public:
     return scale;
   }
 
+  /**
+   * @brief Devuelve una referencia a los datos de la escala del objeto
+   */
   float*
     getSclData() {
     return &scale.x;
   }
 
+  /**
+   * @brief Método para establecer la posición, rotación y escala del objeto
+   */
   void 
     setTransform(const Vector2& pos, const Vector2& rot, const Vector2& scl) {
     position = pos;
