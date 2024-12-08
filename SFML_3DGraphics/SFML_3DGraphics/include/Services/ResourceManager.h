@@ -4,7 +4,7 @@
 #include "Services/NotificationService.h"
 
 class
-  ResourceManager {
+ResourceManager {
 private:
   ResourceManager() = default;
   ~ResourceManager() = default;
